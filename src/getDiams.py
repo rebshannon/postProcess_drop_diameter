@@ -14,7 +14,7 @@ class postProcess:
     def __init__(self, postProcFolder,meshDensity):
         self.postProcFolder = postProcFolder
         self.meshDensity = meshDensity
-        self.threshold = 0.9
+        self.threshold = 0.1
 
     def find_matching_files(self,directory):
         """Recursively find files in a directory tree whose names match a regex.

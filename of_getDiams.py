@@ -4,21 +4,21 @@ import numpy as np
 #import Silo 
 
 # set these variables
-workingDir = "/projectnb/aeracous/REBECCA/DOD_CAVSYM/" # where to loook for cases
+workingDir = "/projectnb/aeracous/REBECCA/sembEllipseParameterSudy/" # where to loook for cases
 #workingDir = "/projectnb/aeracous/REBECCA/postProcessing/testingDirs/" # cases to look for
-caseCat = "U267_D2_B"
+caseCat = "a"
 postProcFolder = "/postProcessing/pvData" # where data is stored within the case
 timeStep = 1e-6
-meshDensity =  2e-6 #2e-6 #0.00127/300
+meshDensity =  5.5e-5 #2e-6 #0.00127/300
 
 # initialize OF class
 OF = OpenFOAMpv( postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep)
 os.chdir(workingDir)
 
 # grab the cases you want to analyze
-#case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
+case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
 case_numbers = []
-case_list = {'U267_D2_B1'} # only one case for testing
+#case_list = {'U267_D2_B1'} # only one case for testing
 print(f"case_list: {case_list}")
 
 header = ["times","horizontal", "vertical","equator", "center_of_mass"]
@@ -41,7 +41,7 @@ for caseName in case_list:
         #case_numbers.append(case_number)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha09.csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}.csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")

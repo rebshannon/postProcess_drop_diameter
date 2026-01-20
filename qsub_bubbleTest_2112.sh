@@ -2,8 +2,8 @@
 
 #$ -m bea 
 #$ -j y
-#$ -N lessEntries
-#$ -l h_rt=48:00:00
+#$ -N sembEllipse
+#$ -l h_rt=96:00:00
 #MPI_BUFFER_SIZE = 8192
 #$ -P aeracous
 
@@ -19,6 +19,6 @@ export PYTHONPATH='/projectnb/aeracous/REBECCA/Silo-main/install/lib64:'${PYTHON
 pip install -e .
 echo 'installed, running code now...'
 
-python new_run_getDiams.py
+python of_getDiams.py
 
 echo 'after python code here'
