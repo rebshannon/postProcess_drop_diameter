@@ -1,0 +1,107 @@
+/usr3/graduate/rebshan/.bashrc: line 46: WM_PROJECT_DIR: parameter null or not set
+
+CondaError: Run 'conda init' before 'conda activate'
+
+Defaulting to user installation because normal site-packages is not writeable
+Obtaining file:///projectnb/aeracous/REBECCA/postProcess_drop_diameter
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting matplotlib==3.10.0 (from postProcess_drop_diameter==0.0.0)
+  Downloading matplotlib-3.10.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+Collecting numpy==1.26.4 (from postProcess_drop_diameter==0.0.0)
+  Downloading numpy-1.26.4.tar.gz (15.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.8/15.8 MB 143.5 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting pytest==7.1.2 (from postProcess_drop_diameter==0.0.0)
+  Downloading pytest-7.1.2-py3-none-any.whl.metadata (7.8 kB)
+Collecting pytest-cov==3.0.0 (from postProcess_drop_diameter==0.0.0)
+  Downloading pytest_cov-3.0.0-py3-none-any.whl.metadata (24 kB)
+Collecting scipy==1.12.0 (from postProcess_drop_diameter==0.0.0)
+  Downloading scipy-1.12.0.tar.gz (56.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.8/56.8 MB 95.5 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  × Preparing metadata (pyproject.toml) did not run successfully.
+  │ exit code: 1
+  ╰─> [44 lines of output]
+      + meson setup /scratch/2796692.1.sgrace/pip-install-425cof3x/scipy_6cc92c86b2454e7a83a08c548b324fe8 /scratch/2796692.1.sgrace/pip-install-425cof3x/scipy_6cc92c86b2454e7a83a08c548b324fe8/.mesonpy-iluoxbz5 -Dbuildtype=release -Db_ndebug=if-release -Db_vscrt=md --native-file=/scratch/2796692.1.sgrace/pip-install-425cof3x/scipy_6cc92c86b2454e7a83a08c548b324fe8/.mesonpy-iluoxbz5/meson-python-native-file.ini
+      The Meson build system
+      Version: 1.10.1
+      Source dir: /scratch/2796692.1.sgrace/pip-install-425cof3x/scipy_6cc92c86b2454e7a83a08c548b324fe8
+      Build dir: /scratch/2796692.1.sgrace/pip-install-425cof3x/scipy_6cc92c86b2454e7a83a08c548b324fe8/.mesonpy-iluoxbz5
+      Build type: native build
+      Project name: scipy
+      Project version: 1.12.0
+      C compiler for the host machine: cc (gcc 8.5.0 "cc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-28)")
+      C linker for the host machine: cc ld.bfd 2.30-128
+      C++ compiler for the host machine: c++ (gcc 8.3.0 "c++ (GCC) 8.3.0")
+      C++ linker for the host machine: c++ ld.bfd 2.30-128
+      Cython compiler for the host machine: cython (cython 3.0.12)
+      Host machine cpu family: x86_64
+      Host machine cpu: x86_64
+      Program python found: YES (/share/pkg.8/python3/3.13.8/install/bin/python3.13)
+      Found pkg-config: YES (/bin/pkg-config) 1.4.2
+      Run-time dependency python found: YES 3.13
+      Program cython found: YES (/scratch/2796692.1.sgrace/pip-build-env-wf531e4r/overlay/bin/cython)
+      Compiler for C supports arguments -Wno-unused-but-set-variable: YES
+      Compiler for C supports arguments -Wno-unused-function: YES
+      Compiler for C supports arguments -Wno-conversion: YES
+      Compiler for C supports arguments -Wno-misleading-indentation: YES
+      Library m found: YES
+      Fortran compiler for the host machine: gfortran (gcc 8.3.0 "GNU Fortran (GCC) 8.3.0")
+      Fortran linker for the host machine: gfortran ld.bfd 2.30-128
+      Compiler for Fortran supports arguments -Wno-conversion: YES
+      Checking if "-Wl,--version-script" links: YES
+      Program pythran found: YES (/scratch/2796692.1.sgrace/pip-build-env-wf531e4r/overlay/bin/pythran)
+      Found pkg-config: YES (/bin/pkg-config) 1.4.2
+      Found CMake: /bin/cmake (3.26.5)
+      Run-time dependency xsimd found: NO (tried pkgconfig and cmake)
+      Run-time dependency threads found: YES
+      Library npymath found: YES
+      Library npyrandom found: YES
+      pybind11-config found: YES (/scratch/2796692.1.sgrace/pip-build-env-wf531e4r/overlay/bin/pybind11-config) 2.11.2
+      Run-time dependency pybind11 found: YES 2.11.2
+      Run-time dependency scipy-openblas found: NO (tried pkgconfig)
+      Run-time dependency openblas found: NO (tried pkgconfig and cmake)
+      Run-time dependency openblas found: NO (tried pkgconfig and cmake)
+      
+      ../scipy/meson.build:169:9: ERROR: Dependency "OpenBLAS" not found, tried pkgconfig and cmake
+      
+      A full log can be found at /scratch/2796692.1.sgrace/pip-install-425cof3x/scipy_6cc92c86b2454e7a83a08c548b324fe8/.mesonpy-iluoxbz5/meson-logs/meson-log.txt
+      [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+
+[notice] A new release of pip is available: 25.2 -> 25.3
+[notice] To update, run: pip install --upgrade pip
+error: metadata-generation-failed
+
+× Encountered error while generating package metadata.
+╰─> See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.
+installed, running code now...
+conda prefix is 
+Traceback (most recent call last):
+  File "/projectnb/aeracous/REBECCA/postProcess_drop_diameter/of_getDiams.py", line 1, in <module>
+    from getDiams import OpenFOAM_pv as OpenFOAMpv
+ModuleNotFoundError: No module named 'getDiams'
+after python code here
