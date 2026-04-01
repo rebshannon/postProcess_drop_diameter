@@ -4,12 +4,13 @@ import numpy as np
 #import Silo 
 
 # set these variables
-workingDir = "/projectnb/aeracous/REBECCA/sembEllipseParameterSudy/" # where to loook for cases
+workingDir = "/projectnb/aeracous/REBECCA/DOD_CAVSYM/" # where to loook for cases
 #workingDir = "/projectnb/aeracous/REBECCA/postProcessing/testingDirs/" # cases to look for
-caseCat = "a"
+print(f"beginning now in {workingDir}")
+caseCat = "U267_D2_B7"
 postProcFolder = "/postProcessing/pvData" # where data is stored within the case
 timeStep = 1e-6
-meshDensity =  5.5e-5 #2e-6 #0.00127/300
+meshDensity =  2e-6 #0.00127/300
 
 # initialize OF class
 OF = OpenFOAMpv( postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep)

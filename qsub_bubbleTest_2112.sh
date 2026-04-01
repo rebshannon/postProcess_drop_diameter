@@ -20,7 +20,7 @@ cd $AHOME/postProcess_drop_diameter/
 
 pip install -e .
 echo 'installed, running code now...'
-echo 'conda prefix is'$CONDA_PREFIX
+#echo 'conda prefix is'$CONDA_PREFIX
 python of_getDiams.py
 
 echo 'after python code here'
