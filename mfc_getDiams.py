@@ -4,27 +4,27 @@ import numpy as np
 import Silo 
 
 # set these variables
-workingDir = "/projectnb/aeracous/REBECCA/MFC/v5.0.6/shockDropParam/2D/" # where to loook for cases
-caseCat = "case"
+workingDir = "/projectnb/aeracous/REBECCA/shockDropBubble_DOD/" # where to loook for cases
+caseCat = "M2_B"
 postProcFolder = "/silo_hdf5/" # where data is stored within the case
-nProc = 32
+nProc = 128
 
 ## FIX : need to find dt and mesh density from the case.py file
 
 timeStep = 1e-6 # not used?
-meshDensity =  0.0035/300
+meshDensity =  0.002/200
 
 # initialize MFC class
 MFC = MFC(postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep,nProc=nProc)
 os.chdir(workingDir)
 
 # grab the cases you want to analyze
-#case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
+case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
 case_numbers = []
-case_list = {'case1'} # only one case for testing
+#case_list = {'case1'} # only one case for testing
 print(f"case_list: {case_list}")
 
-header = ["timeStep","horizontal", "vertical","equator", "center_of_mass"]
+header = ["timeStep","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
 
 diam_info_list = []
 
@@ -37,7 +37,7 @@ for caseName in case_list:
         diam_info_list.append(diameter_info)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}.csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_09.csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")

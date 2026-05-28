@@ -2,8 +2,8 @@
 
 #$ -m bea 
 #$ -j y
-#$ -N sembEllipse
-#$ -l h_rt=48:00:00
+#$ -N cavSym_redo
+#$ -l h_rt=120:00:00
 #MPI_BUFFER_SIZE = 8192
 #$ -P aeracous
 
@@ -12,7 +12,7 @@
 
 # Load modules
 #module load python3
-
+module load miniconda
 conda activate work-env
 export PYTHONPATH='/projectnb/aeracous/REBECCA/Silo-main/install/lib64:'${PYTHONPATH}
 

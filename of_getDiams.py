@@ -7,7 +7,7 @@ import numpy as np
 workingDir = "/projectnb/aeracous/REBECCA/DOD_CAVSYM/" # where to loook for cases
 #workingDir = "/projectnb/aeracous/REBECCA/postProcessing/testingDirs/" # cases to look for
 print(f"beginning now in {workingDir}")
-caseCat = "U267_D2_B7"
+caseCat = "U267_D2_B"
 postProcFolder = "/postProcessing/pvData" # where data is stored within the case
 timeStep = 1e-6
 meshDensity =  2e-6 #0.00127/300
@@ -19,10 +19,10 @@ os.chdir(workingDir)
 # grab the cases you want to analyze
 case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
 case_numbers = []
-#case_list = {'U267_D2_B1'} # only one case for testing
+#case_list = {'U267_D2_B1','U267_D2_B2','U267_D2_B2b','U267_D2_B3','U267_D2_B4','U267_D2_B45','U267_D2_B7','U267_D2_B10','U267_D2_B11','U267_D2_B12} # only one case for testing
 print(f"case_list: {case_list}")
 
-header = ["times","horizontal", "vertical","equator", "center_of_mass"]
+header = ["times","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
 
 diam_info_list = []
 # perimeter_info_list = []
@@ -42,7 +42,7 @@ for caseName in case_list:
         #case_numbers.append(case_number)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}.csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha01.csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")

@@ -91,7 +91,7 @@ class postProcess:
         
 
         # Build a KD-tree for fast neighbor search
-        tree = cKDTree(coords)
+        tree = cKDTree(coords[:,:3])
         #print('tree made')
 
         # Find neighbors within a small distance (e.g., 2x grid spacing)
@@ -142,8 +142,9 @@ class postProcess:
         # The major diameter is the maximum distance between any two points
         horizontal_diameter = max_x - min_x
         vertical_diameter = 2 * (max_y - min_y)  # Initial guess for vertical diameter
+        leading_edge = min_x
         
-        return horizontal_diameter, vertical_diameter
+        return horizontal_diameter, vertical_diameter, leading_edge
     
     def calculate_equator_diameter(self,coords):
         """Estimate equator diameter using center horizontal axis of the main droplet.
@@ -162,10 +163,11 @@ class postProcess:
         -------
         list[float]
             equator_diameter : horizontal diameter along droplet equator
+	    leading_edge : location of leading edge of droplet on y = 0
         """
        
         # Build a KD-tree for fast neighbor search
-        tree = cKDTree(coords)
+        tree = cKDTree(coords[:,:3])
         #print('tree made')
 
         # Find neighbors within a small distance (e.g., 2x grid spacing)
@@ -209,8 +211,9 @@ class postProcess:
         min_x = coords_hAxis[:, 0].min()
 
         equator_diameter = max_x - min_x
+        leading_edge_eq = min_x
 
-        return equator_diameter
+        return equator_diameter, leading_edge_eq
 
     def calculate_centOfMass_diameter(self,coords):
         """Estimate equator diameter using center horizontal axis of the main droplet.
@@ -232,7 +235,7 @@ class postProcess:
         """
         #print('in center of mass')
         # Build a KD-tree for fast neighbor search
-        tree = cKDTree(coords)
+        tree = cKDTree(coords[:,:3])
         #print('tree made')
 
         # Find neighbors within a small distance (e.g., 2x grid spacing)
@@ -343,7 +346,7 @@ class OpenFOAM_pv(postProcess):
             #get data and a list of times files were saved at
             times = []
             time_strs = []
-            diameters = np.array([0,0,0,0])
+            diameters = np.array([0,0,0,0,0,0])
             for file in sorted_matching_files:
                 #print('file = ',file)
                 #data, times,time_strs = self.load_dataframes(file, caseName,True)
@@ -352,11 +355,11 @@ class OpenFOAM_pv(postProcess):
                 #major_diameter_pca,minor_diameter_pca = calculate_diameters_pca(df)
                 coords = self.get_water_points(data)
                 #print('coords =', coords)
-                horizontal_diameter, vertical_diameter = self.calculate_diameters(coords)
-                equator_diameter = self.calculate_equator_diameter(coords)
+                horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
+                equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
                 center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
                 #diameters = np.vstack([diameters, [major_diameter_pca, minor_diameter_pca, major_diameter, minor_diameter]])
-                diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter]])
+                diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
                 #print('diams found')
 
             times = pd.DataFrame(times, columns=[caseName])
@@ -374,6 +377,8 @@ class OpenFOAM_pv(postProcess):
             diameter_info["vertical"] = diameters[:,1]
             diameter_info["equator"] = diameters[:,2]
             diameter_info['center_of_mass'] = diameters[:,3]
+            diameter_info['leading_edge'] = diameters[:,4]
+            diameter_info['leading_edge_equator'] = diameters[:,5]
             os.chdir("../")
             print(f"case:{caseName}")
             print(f"diameter_info:{diameter_info}")
@@ -468,7 +473,7 @@ class MFC(postProcess):
             #get data and a list of times files were saved at
             times = []
             time_strs = []
-            diameters = np.array([0,0,0,0])
+            diameters = np.array([0,0,0,0,0,0])
             for file in sorted_matching_files:
                 #data, times,time_strs = self.load_dataframes(file, caseName,True)
                 tStep = self.get_time_from_fileName(file)
@@ -477,10 +482,10 @@ class MFC(postProcess):
                 data = self.extract_and_combine_data(file,tStep,folder)
                 
                 coords = self.get_water_points(data)
-                horizontal_diameter, vertical_diameter = self.calculate_diameters(coords)
-                equator_diameter = self.calculate_equator_diameter(coords)
+                horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
+                equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
                 center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
-                diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter]])
+                diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
 
             times = pd.DataFrame(times, columns=[caseName])
             time_strs = pd.DataFrame(time_strs,columns=[caseName])
@@ -493,6 +498,8 @@ class MFC(postProcess):
             diameter_info["vertical"] = diameters[:,1]
             diameter_info["equator"] = diameters[:,2]
             diameter_info['center_of_mass'] = diameters[:,3]
+            diameter_info['leading_edge'] = diameters[:,4]
+            diameter_info['leading_edge_equator'] = diameters[:,5]
             os.chdir("../")
             print(f"case:{caseName}")
             print(f"diameter_info:{diameter_info}")
@@ -507,7 +514,7 @@ class MFC(postProcess):
 
         waterProc = []
         for i in range(0,2*self.nProc-1,2):
-            if alphaExtents[i] >= 0.1 or alphaExtents[i+1] >= 0.1:
+            if alphaExtents[i] >= self.threshold or alphaExtents[i+1] >= self.threshold:
                 waterProc.append(i/2)
 
         alphaList = []
@@ -547,7 +554,7 @@ class MFC(postProcess):
                     alphaList.append([valX,valY,0,alphaValues[indA]])
                     indA += 1
                     
-        
+
             proc_DB.Close()
         root_DB.Close()
         
@@ -614,18 +621,18 @@ class OpenFOAM(postProcess):
             #get data and a list of times files were saved at
             times = []
             time_strs = []
-            diameters = np.array([0,0,0,0])
+            diameters = np.array([0,0,0,0,0,0])
             for file in sorted_matching_files:
                 #data, times,time_strs = self.load_dataframes(file, caseName,True)
                 data, times, time_strs = self.load_dataframe(file,True,times,time_strs)
 
                 #major_diameter_pca,minor_diameter_pca = calculate_diameters_pca(df)
                 coords = self.get_water_points(data)
-                horizontal_diameter, vertical_diameter = self.calculate_diameters(coords)
-                equator_diameter = self.calculate_equator_diameter(coords)
+                horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
+                equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
                 center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
                 #diameters = np.vstack([diameters, [major_diameter_pca, minor_diameter_pca, major_diameter, minor_diameter]])
-                diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter]])
+                diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
                 #print('diams found')
 
             times = pd.DataFrame(times, columns=[caseName])
@@ -643,6 +650,8 @@ class OpenFOAM(postProcess):
             diameter_info["vertical"] = diameters[:,1]
             diameter_info["equator"] = diameters[:,2]
             diameter_info['center_of_mass'] = diameters[:,3]
+            diameter_info['leading_edge'] = diameters[:,4]
+            diameter_info['leading_edge_equator'] = diameters[:,5]
             os.chdir("../")
             print(f"case:{caseName}")
             print(f"diameter_info:{diameter_info}")
