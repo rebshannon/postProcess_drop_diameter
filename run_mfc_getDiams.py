@@ -1,11 +1,11 @@
-from getDiams import MFC as MFC
+from getDiams_MFC import MFC as MFC
 import os
 import numpy as np
 import Silo 
 
 # set these variables
 workingDir = "/projectnb/aeracous/REBECCA/shockDropBubble_DOD/" # where to loook for cases
-caseCat = "M2_B"
+caseCat = "M2_B0"
 postProcFolder = "/silo_hdf5/" # where data is stored within the case
 nProc = 128
 
@@ -37,7 +37,7 @@ for caseName in case_list:
         diam_info_list.append(diameter_info)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_09.csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha01.csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")

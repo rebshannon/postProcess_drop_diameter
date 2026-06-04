@@ -1,2 +1,4 @@
 calc_diam_onAxis
 getDiams
+getDiams_MFC
+getDiams_OF

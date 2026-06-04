@@ -3,6 +3,8 @@ README.md
 pyproject.toml
 src/calc_diam_onAxis.py
 src/getDiams.py
+src/getDiams_MFC.py
+src/getDiams_OF.py
 src/postProcess_drop_diameter.egg-info/PKG-INFO
 src/postProcess_drop_diameter.egg-info/SOURCES.txt
 src/postProcess_drop_diameter.egg-info/dependency_links.txt
