@@ -1,0 +1,534 @@
+ASSEMBLER_AARCH64=/opt/cray/pe/cce/16.0.0/binutils/cross/x86_64-aarch64/aarch64-linux-gnu/bin/as
+LS_COLORS=no=00:fi=00:di=01;34:ln=00;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=41;33;01:ex=00;32:*.cmd=00;32:*.exe=01;32:*.com=01;32:*.bat=01;32:*.btm=01;32:*.dll=01;32:*.tar=00;31:*.tbz=00;31:*.tgz=00;31:*.rpm=00;31:*.deb=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.zip=00;31:*.zoo=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.tb2=00;31:*.tz2=00;31:*.tbz2=00;31:*.xz=00;31:*.avi=01;35:*.bmp=01;35:*.dl=01;35:*.fli=01;35:*.gif=01;35:*.gl=01;35:*.jpg=01;35:*.jpeg=01;35:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp4=01;35:*.mpg=01;35:*.pcx=01;35:*.pbm=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.svg=01;35:*.tga=01;35:*.tif=01;35:*.webm=01;35:*.webp=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.aiff=00;32:*.ape=00;32:*.au=00;32:*.flac=00;32:*.m4a=00;32:*.mid=00;32:*.mp3=00;32:*.mpc=00;32:*.ogg=00;32:*.voc=00;32:*.wav=00;32:*.wma=00;32:*.wv=00;32:
+LD_LIBRARY_PATH=/.singularity.d/libs
+PE_LIBSCI_DEFAULT_VOLATILE_PRGENV=AOCC CRAY GNU INTEL NVIDIA
+PE_ATP_PKGCONFIG_VARIABLES=ATP_CFLAGS_@prgenv@_@language@
+HOSTTYPE=x86_64
+CRAY_DSMML_ROOTDIR=/opt/cray/pe/dsmml/0.2.2
+CRAY_PE_MODULES=cray-hdf5
+LOCALWORKDIR=/tmp/scratch/rebshan
+PE_MPICH_DEFAULT_FORTRAN_PKGCONFIG_LIBS=mpichf90
+PE_FFTW_DEFAULT_TARGET_share=share
+CRAY_DSMML_DIR=/opt/cray/pe/dsmml/0.2.2/dsmml
+PE_DSMML_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/dsmml/0.2.2/dsmml/lib/pkgconfig
+COST_HOME=/app/COST
+PRGENVMODULES=PrgEnv-amd:PrgEnv-aocc:PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-nvhpc:PrgEnv-nvidia:PrgEnv-pgi
+PKG_CONFIG_PATH_DEFAULT=/opt/cray/pe/papi/7.0.0.2/lib64/pkgconfig
+PE_MPICH_GTL_DIR_amd_gfx90a=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+PE_LIBSCI_OMP_REQUIRES=
+SSH_CONNECTION=10.150.8.222 41306 10.150.8.222 22
+LESSCLOSE=lessclose.sh %s %s
+PE_SMA_DEFAULT_DIR_PGI_DEFAULT64=64
+CRAY_LD_LIBRARY_PATH=/opt/cray/pe/hdf5/1.12.2.3/CRAYCLANG/14.0/lib:/opt/cray/pe/libsci/23.05.1.4/CRAY/12.0/x86_64/lib:/opt/cray/pe/mpich/8.1.26/ofi/cray/14.0/lib:/opt/cray/pe/mpich/8.1.26/gtl/lib:/opt/cray/pe/perftools/23.05.0/lib64:/opt/cray/pe/dsmml/0.2.2/dsmml/lib:/opt/cray/pe/cce/16.0.0/cce-clang/x86_64/lib:/opt/cray/pe/cce/16.0.0/cce/x86_64/lib
+PE_PAPI_DEFAULT_ACCEL_FAMILY_LIBS_nvidia=,-lcupti,-lcudart,-lcuda
+PE_LIBSCI_ACC_DEFAULT_PKGCONFIG_VARIABLES=PE_LIBSCI_ACC_DEFAULT_SUFFIX_@accelerator@
+XKEYSYMDB=/usr/X11R6/lib/X11/XKeysymDB
+PE_ENV=CRAY
+LINKER_AARCH64=/opt/cray/pe/cce/16.0.0/binutils/cross/x86_64-aarch64/aarch64-linux-gnu/bin/ld
+PE_LIBSCI_DEFAULT_GENCOMPS_GNU_x86_64=103
+CRAYPAT_LD_LIBRARY_PATH=/opt/cray/pe/gcc-libs:/opt/cray/pe/perftools/23.05.0/lib64
+PE_HDF5_DIR=/opt/cray/pe/hdf5/1.12.2.3
+FTN_X86_64=/opt/cray/pe/cce/16.0.0/cce/x86_64
+CRAY_DSMML_PREFIX=/opt/cray/pe/dsmml/0.2.2/dsmml
+PE_PRODUCT_LIST=CRAY_LIBSCI:CRAYPE_X86_ROME:CRAYPE:PERFTOOLS:CRAYPAT
+CRAYPAT_ROOT=/opt/cray/pe/perftools/23.05.0
+PE_PERFTOOLS_MPICH_LIBDIR=/opt/cray/pe/mpich/8.1.26/ofi/cray/14.0/lib
+PE_MPICH_GTL_DIR_amd_gfx906=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+PE_LIBSCI_MODULE_NAME=cray-libsci/23.05.1.4
+LANG=en_US.UTF-8
+PE_LIBSCI_GENCOMPILERS_CRAY_x86_64=12.0
+CRAY_BINUTILS_ROOT_X86_64=/opt/cray/pe/cce/16.0.0/binutils/x86_64/x86_64-pc-linux-gnu/../
+PE_MPICH_GTL_DIR_amd_gfx908=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+PE_DSMML_MODULE_NAME=cray-dsmml
+WINDOWMANAGER=xterm
+LESS=-M -I -R
+PE_MPICH_GTL_LIBS_nvidia70=-lmpi_gtl_cuda
+HOSTNAME=narwhal09
+PE_FFTW_DEFAULT_TARGET_x86_spr=x86_spr
+APPTAINER_COMMAND=exec
+OLDPWD=/p/newhome/rebshan/ondemand/data/sys/dashboard/batch_connect/sys/code-server/form/output/bcf9b3fd-8e72-44c6-913d-e5257b6c2af5
+PE_MPICH_DEFAULT_GTL_DIR_nvidia80=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+CSHEDIT=emacs
+HDF5_ROOT=/opt/cray/pe/hdf5/1.12.2.3/CRAYCLANG/14.0
+APPTAINER_CONTAINER=/p/app/ondemand/containers/cs_scratch.sif
+CSI_HOME=/app/COTS
+VSCODE_PROXY_URI=https://narwhal.ood.hpc.mil/rnode/narwhal09/8535/proxy/{{port}}/
+GPG_TTY=/dev/pts/47
+PE_LIBSCI_GENCOMPILERS_NVIDIA_x86_64=20.7
+LESS_ADVANCED_PREPROCESSOR=no
+PE_DSMML_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/dsmml/0.2.2/dsmml/dsmml/lib/pkgconfig
+PE_MPICH_DEFAULT_GTL_LIBS_amd_gfx90a=-lmpi_gtl_hsa
+PE_FFTW_DEFAULT_TARGET_x86_64=x86_64
+COLORTERM=truecolor
+GCC_X86_64=/opt/cray/pe/gcc/10.3.0/snos
+PROJECTS_HOME=/app/projects
+ASSEMBLER_X86_64=/opt/cray/pe/cce/16.0.0/binutils/x86_64/x86_64-pc-linux-gnu/bin/as
+FPATH=:/opt/cray/pe/modules/3.2.11.7/init/sh_funcs/no_redirect:/opt/cray/pe/modules/3.2.11.7/init/sh_funcs/no_redirect:/opt/cray/pe/modules/3.2.11.7/init/sh_funcs/no_redirect:/opt/cray/pe/modules/3.2.11.7/init/sh_funcs/no_redirect
+GIT_SSL_CAINFO=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
+CRAY_PERFTOOLS_VERSION=23.05.0
+PE_NETCDF_HDF5PARALLEL_DEFAULT_REQUIRED_PRODUCTS=PE_HDF5_PARALLEL
+ATP_CFLAGS=
+JAVA_HOME=/usr/lib64/jvm/java-11-openjdk-11
+COMPILERRT_PATH_X86_64=/opt/cray/pe/cce/16.0.0/cce-clang/x86_64/lib/clang/16/lib/linux
+PE_MPICH_DEFAULT_GTL_LIBS_amd_gfx908=-lmpi_gtl_hsa
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+PE_FFTW_DEFAULT_TARGET_x86_skylake=x86_skylake
+PE_MPICH_DEFAULT_GTL_LIBS_amd_gfx906=-lmpi_gtl_hsa
+APP2_STATE=23.05.0
+PE_LIBSCI_ACC_DEFAULT_GENCOMPS_GNU_x86_64=81
+LINKER_X86_64=/opt/cray/pe/cce/16.0.0/binutils/x86_64/x86_64-pc-linux-gnu/bin/ld
+PE_MPICH_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/mpich/8.1.26/ofi/@PRGENV@/@PE_MPICH_DEFAULT_GENCOMPS@/lib/pkgconfig:/opt/cray/pe/mpich/8.1.26/gtl/lib/pkgconfig
+MACHTYPE=x86_64-suse-linux
+PE_LIBSCI_FIXED_PRGENV=CRAYCLANG
+PE_FFTW_DEFAULT_TARGET_broadwell=broadwell
+PE_FFTW_DEFAULT_TARGET_x86_milan_x=x86_milan_x
+PE_PAPI_DEFAULT_ACCEL_LIBS=
+PE_LIBSCI_ACC_DEFAULT_GENCOMPS_CRAYCLANG_x86_64=90
+PE_SMA_DEFAULT_COMPFLAG=
+PE_PKGCONFIG_PRODUCTS=PE_HDF5:PE_LIBSCI:PE_MPICH:PE_DSMML:PE_ATP
+WORKDIR2=/p/work2/rebshan
+CRAY_MPICH_BASEDIR=/opt/cray/pe/mpich/8.1.26/ofi
+PE_MPICH_DEFAULT_GTL_DIR_nvidia70=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+PE_MPICH_GTL_DIR_nvidia80=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+VIRTUAL_ENV=/p/newhome/rebshan/postProcessing/myenv
+PE_LIBSCI_GENCOMPILERS_GNU_x86_64=10.3
+MINICOM=-c on
+PE_HDF5_CXX_PKGCONFIG_LIBS=hdf5_hl_cpp:hdf5_cpp
+C3_RSH=ssh -oConnectTimeout=10 -oForwardX11=no
+PE_MPICH_PKGCONFIG_VARIABLES=PE_MPICH_GTL_DIR_@accelerator@:PE_MPICH_GTL_LIBS_@accelerator@
+PE_MPICH_PKGCONFIG_LIBS=mpich
+PE_PARALLEL_NETCDF_DEFAULT_FIXED_PRGENV=GNU CRAYCLANG INTEL AOCC NVIDIA
+LOG_LEVEL=info
+QT_SYSTEM_DIR=/usr/share/desktop-data
+OSTYPE=linux
+PE_FFTW_DEFAULT_TARGET_x86_trento=x86_trento
+PE_LEVEL=16.0
+PE_NETCDF_DEFAULT_REQUIRED_PRODUCTS=PE_HDF5
+BC_ACCELERATOR_NODE_CORES=128
+CC=cc
+XDG_SESSION_ID=238939
+PE_AOCC_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/pe/parallel-netcdf/1.12.3.3/AOCC/3.0/lib/pkgconfig:/opt/cray/pe/netcdf-hdf5parallel/4.9.0.3/AOCC/3.0/lib/pkgconfig:/opt/cray/pe/netcdf/4.9.0.3/AOCC/3.0/lib/pkgconfig:/opt/cray/pe/hdf5-parallel/1.12.2.3/AOCC/3.0/lib/pkgconfig:/opt/cray/pe/hdf5/1.12.2.3/AOCC/3.0/lib/pkgconfig
+CRAY_DSMML_VER=0.2.2
+USER=root
+USER_PATH=/p/app/mpscp-1.3a/bin:/usr/local/krb5/bin:/opt/cray/pe/pals/1.2.12/bin:/opt/cray/pe/mpich/8.1.26/ofi/cray/14.0/bin:/opt/cray/pe/mpich/8.1.26/bin:/opt/cray/pe/perftools/23.05.0/bin:/opt/cray/pe/papi/7.0.0.2/bin:/opt/cray/libfabric/1.22.0/bin:/opt/cray/pe/craype/2.7.21/bin:/opt/cray/pe/cce/16.0.0/binutils/x86_64/x86_64-pc-linux-gnu/bin:/opt/cray/pe/cce/16.0.0/binutils/cross/x86_64-aarch64/aarch64-linux-gnu/../bin:/opt/cray/pe/cce/16.0.0/utils/x86_64/bin:/opt/cray/pe/cce/16.0.0/bin:/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sbin:/opt/sgi/bin:/usr/local/bin:/usr/bin:/bin:/opt/c3/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin:/app/bin:/app/COTS/bin:/p/app/BCT/bin:/p/app/SLB:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+PE_LIBSCI_DEFAULT_GENCOMPS_AOCC_x86_64=32
+PAGER=less
+PE_MPICH_GENCOMPILERS_NVIDIA=20.7
+MODULE_VERSION=3.2.11.7
+CRAY_CXX_IPA_LIBS_AARCH64=/opt/cray/pe/cce/16.0.0/cce/aarch64/lib/libcray-c++-rts.a
+PE_PKG_CONFIG_PATH=/opt/cray/pe/valgrind4hpc/2.13.0/lib/pkgconfig:/opt/cray/pe/cti/2.18.0/lib/pkgconfig:/opt/cray/pe/atp/3.15.0/lib/pkgconfig
+PE_CRAYCLANG_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/pe/parallel-netcdf/1.12.3.3/CRAYCLANG/14.0/lib/pkgconfig:/opt/cray/pe/netcdf-hdf5parallel/4.9.0.3/CRAYCLANG/14.0/lib/pkgconfig:/opt/cray/pe/netcdf/4.9.0.3/CRAYCLANG/14.0/lib/pkgconfig:/opt/cray/pe/hdf5-parallel/1.12.2.3/CRAYCLANG/14.0/lib/pkgconfig:/opt/cray/pe/hdf5/1.12.2.3/CRAYCLANG/14.0/lib/pkgconfig
+PE_LIBSCI_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+TOOLMODULES=apprentice:apprentice2:atp:ccdb:cdt:chapel:cray-R:cray-cti:cray-lgdb:cray-snplauncher:craypat:craypkg-gen:ddt:gdb:gdb4hpc:iobuf:papi:perftools:perftools-lite:python:stat:totalview:xt-craypat:xt-lgdb:xt-papi:xt-totalview
+SINGULARITY_CONTAINER=/p/app/ondemand/containers/cs_scratch.sif
+CRAY_CPU_TARGET=x86-rome
+PE_LIBSCI_GENCOMPILERS_INTEL_x86_64=2022.2
+PE_FFTW_DEFAULT_TARGET_x86_milan=x86_milan
+PE_INTEL_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/pe/parallel-netcdf/1.12.3.3/INTEL/19.0/lib/pkgconfig:/opt/cray/pe/netcdf-hdf5parallel/4.9.0.3/INTEL/19.0/lib/pkgconfig:/opt/cray/pe/netcdf/4.9.0.3/INTEL/19.0/lib/pkgconfig:/opt/cray/pe/mpich/8.1.26/ofi/intel/2022.1/lib/pkgconfig:/opt/cray/pe/hdf5-parallel/1.12.2.3/INTEL/19.0/lib/pkgconfig:/opt/cray/pe/hdf5/1.12.2.3/INTEL/19.0/lib/pkgconfig
+PE_LIBSCI_VOLATILE_PRGENV=AOCC CRAY GNU INTEL NVIDIA
+KSH_AUTOLOAD=1
+PE_SMA_DEFAULT_PKGCONFIG_VARIABLES=PE_SMA_COMPFLAG_@prgenv@
+PKGCONFIG_ENABLED=1
+MORE=-sl
+PE_PAPI_DEFAULT_ACCEL_LIBS_nvidia35=,-lcupti,-lcudart,-lcuda
+CRAY_PERFTOOLS_PREFIX=/opt/cray/pe/perftools/23.05.0
+PE_FORTRAN_PKGCONFIG_LIBS=hdf5hl_fortran:hdf5_fortran:mpichf90
+CRAY_CXX_IPA_LIBS=/opt/cray/pe/cce/16.0.0/cce/x86_64/lib/libcray-c++-rts.a
+PE_MPICH_GENCOMPILERS_CRAY=14.0
+CRAY_LIBSCI_BASE_DIR=/opt/cray/pe/libsci/23.05.1.4
+ARCHIVE_HOST=st-vsm1.navydsrc.hpc.mil
+PE_NETCDF_HDF5PARALLEL_DEFAULT_FIXED_PRGENV=GNU CRAYCLANG INTEL AOCC NVIDIA
+PE_SMA_DEFAULT_DIR_CRAY_DEFAULT64=64
+NIX_PATH=/nix/var/nix/profiles/per-user/root/channels:/root/.nix-defexpr/channels
+PWD=/p/home/rebshan/postProcessing/postProcess_drop_diameter
+TARGETMODULES=craype-accel-amd-gfx908:craype-accel-amd-gfx90a:craype-accel-amd-gfx940:craype-accel-host:craype-accel-nvidia70:craype-accel-nvidia80:craype-arm-grace:craype-network-none:craype-network-ofi:craype-network-ucx:craype-x86-genoa:craype-x86-milan:craype-x86-milan-x:craype-x86-rome:craype-x86-spr:craype-x86-spr-hbm:craype-x86-trento
+PE_MPICH_GTL_DIR_nvidia70=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+HOME=/p/home/rebshan
+CRAYLIBS_AARCH64=/opt/cray/pe/cce/16.0.0/cce/aarch64/lib
+PELOCAL_PRGENV=true
+BROWSER=/nix/store/7493vl4l08di46rybfcrmx2q18zsl2gm-code-server-4.91.1/libexec/code-server/lib/vscode/bin/helpers/browser.sh
+VSCODE_GIT_ASKPASS_NODE=/nix/store/9x6rhv1spnj29hdb9m867xwn33k31wda-nodejs-20.19.4/bin/node
+APPTAINER_BIND=/bin,/sbin,/usr,/lib,/lib64,/etc,/p,/app,/run,/opt,/archive,/var/run,/var/spool,/usr/local/krb5/etc/ssh_config
+BC_NODE_TYPE=LOGIN
+PE_LIBSCI_REQUIRED_PRODUCTS=PE_MPICH
+PE_FFTW_DEFAULT_TARGET_x86_rome=x86_rome
+TERM_PROGRAM=vscode
+PE_MPICH_DEFAULT_GTL_LIBS_nvidia70=-lmpi_gtl_cuda
+HOST=narwhal09
+SSH_CLIENT=10.150.8.222 41306 22
+TERM_PROGRAM_VERSION=1.91.1
+KRB5_HOME=/usr/local/krb5
+CRAY_PRGENVCRAY=loaded
+PE_LIBSCI_ACC_DEFAULT_GENCOMPILERS_AMD_x86_64=4.0
+PE_LIBSCI_ACC_DEFAULT_GENCOMPS_AMD_x86_64=40
+XNLSPATH=/usr/share/X11/nls
+PE_MPICH_FORTRAN_PKGCONFIG_LIBS=mpichf90
+TMUX=/run/tmux/943566/default,747888,0
+PE_HDF5_FORTRAN_PKGCONFIG_LIBS=hdf5hl_fortran:hdf5_fortran
+PE_LIBSCI_ACC_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/libsci_acc/21.12.1.1/@PRGENV@/@PE_LIBSCI_ACC_DEFAULT_GENCOMPS@/@PE_LIBSCI_ACC_DEFAULT_TARGET@/lib/pkgconfig
+PE_LIBSCI_PKGCONFIG_LIBS=libsci_mpi:libsci
+XDG_SESSION_TYPE=tty
+SDK_HOME=/usr/lib64/jvm/java-11-openjdk-11
+PE_LIBSCI_OMP_REQUIRES_openmp=_mp
+F77=ftn
+PE_MPICH_GTL_LIBS_nvidia80=-lmpi_gtl_cuda
+CRAYLIBS_X86_64=/opt/cray/pe/cce/16.0.0/cce/x86_64/lib
+XDG_DATA_DIRS=/usr/share
+PE_AOCC_FIXED_PKGCONFIG_PATH=/opt/cray/pe/hdf5/1.12.2.3/AOCC/3.0/lib/pkgconfig
+FI_VERBS_PREFER_XRC=0
+PE_CXX_PKGCONFIG_LIBS=hdf5_hl_cpp:hdf5_cpp
+SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
+CRAY_BINUTILS_ROOT=/opt/cray/pe/cce/16.0.0/binutils/x86_64/x86_64-pc-linux-gnu/../
+host=narwhal09
+PYTHON_PATH=/opt/cray/pe/python/3.10.10
+cce_already_loaded=0
+PE_MPICH_MODULE_NAME=cray-mpich
+CRAY_LIBSCI_DIR=/opt/cray/pe/libsci/23.05.1.4
+NLSPATH=/opt/cray/pe/cce/16.0.0/cce/x86_64/share/nls/En/%N.cat
+LIBGL_DEBUG=quiet
+PE_LIBSCI_ACC_DEFAULT_SUFFIX_amd_gfx90a=gfx90a
+APPTAINER_NAME=cs_scratch.sif
+PE_LIBSCI_DEFAULT_OMP_REQUIRES=
+PE_LIBSCI_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/libsci/23.05.1.4/@PRGENV@/@PE_LIBSCI_GENCOMPS@/@PE_LIBSCI_TARGET@/lib/pkgconfig
+JDK_HOME=/usr/lib64/jvm/java-11-openjdk-11
+CRAY_HDF5_PREFIX=/opt/cray/pe/hdf5/1.12.2.3/CRAYCLANG/14.0
+PE_PKGCONFIG_DEFAULT_LIBS=mpich
+VSCODE_IPC_HOOK_CLI=/p/home/rebshan/.run/vscode-ipc-da2439f0-4a6a-4629-b459-0aa965161e3a.sock
+LIBSCI_VERSION=23.05.1.4
+PE_LIBSCI_ACC_DEFAULT_SUFFIX_amd_gfx908=gfx908
+PROFILEREAD=true
+TMPDIR=/p/work1/tmp/rebshan
+PERFTOOLS_VERSION=23.05.0
+PE_LIBSCI_DEFAULT_OMP_REQUIRES_openmp=_mp
+CRAY_BINUTILS_VERSION=/opt/cray/pe/cce/16.0.0
+CRAY_CCE_CLANGSHARE=/opt/cray/pe/cce/16.0.0/cce-clang/x86_64/share
+PE_PKGCONFIG_LIBS=hdf5_hl:hdf5:libsci_mpi:libsci:mpich:dsmml
+PE_MPICH_DEFAULT_GTL_LIBS_nvidia80=-lmpi_gtl_cuda
+USERMODULES=PrgEnv-amd:PrgEnv-aocc:PrgEnv-cray:PrgEnv-gnu:PrgEnv-intel:PrgEnv-nvidia:PrgEnv-pathscale:PrgEnv-pgi:acml:alps:apprentice:apprentice2:atp:blcr:cce:chapel:cray-R:cray-ccdb:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-lgdb:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-compat:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-openshmemx:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-snplauncher:cray-tpsl:cray-trilinos:craypat:craype:craypkg-gen:cudatoolkit:ddt:fftw:ga:gcc:hdf5:hdf5-parallel:intel:iobuf:java:lgdb:libfast:libsci_acc:mpich1:netcdf:netcdf-hdf5parallel:netcdf-nofsync:netcdf-nofsync-hdf5parallel:ntk:nvidia:onesided:papi:parallel-netcdf:pathscale:perftools:perftools-lite:petsc:petsc-complex:pgi:pmi:python:rocm-compiler:stat:totalview:tpsl:trilinos:xt-asyncpe:xt-craypat:xt-lgdb:xt-libsci:xt-mpich2:xt-mpt:xt-papi:xt-shmem:xt-totalview
+PE_MPICH_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/mpich/8.1.26/ofi/@PRGENV@/@PE_MPICH_GENCOMPS@/lib/pkgconfig:/opt/cray/pe/mpich/8.1.26/gtl/lib/pkgconfig
+LOADEDMODULES=cce/16.0.0:craype/2.7.21:craype-x86-rome:libfabric/1.22.0:craype-network-ofi:cray-dsmml/0.2.2:perftools-base/23.05.0:cray-mpich/8.1.26:cray-libsci/23.05.1.4:cray-pals/1.2.12:bct-env/0.2:mpscp/1.3a:PrgEnv-cray/8.4.0:cray-python/3.10.10:cray-hdf5/1.12.2.3
+PE_HDF5_MODULE_NAME=cray-hdf5/1.12.2.3
+BC_MEM_PER_NODE=243139
+PE_LIBSCI_ACC_DEFAULT_GENCOMPILERS_GNU_x86_64=8.1
+PE_FFTW_DEFAULT_TARGET_x86_genoa=x86_genoa
+CRAYPE_NETWORK_TARGET=ofi
+INCLUDE_PATH_AARCH64=/opt/cray/pe/cce/16.0.0/cce/aarch64/include/craylibs
+CRAY_PE_USE_CLANG=/opt/cray/pe/cce/16.0.0/cce-clang/x86_64/bin/clang
+PROJECTS_ARCHIVE=/archive/g/projects
+VIRTUAL_ENV_PROMPT=(myenv) 
+HDF5_DIR=/opt/cray/pe/hdf5/1.12.2.3/CRAYCLANG/14.0
+GCC_AARCH64=/opt/gcc-cross-aarch64/10.3.0/aarch64
+LIBRARYMODULES=acml:alps:cray-dwarf:cray-fftw:cray-ga:cray-hdf5:cray-hdf5-parallel:cray-libsci:cray-libsci_acc:cray-mpich:cray-mpich-abi:cray-mpich2:cray-netcdf:cray-netcdf-hdf5parallel:cray-parallel-netcdf:cray-petsc:cray-petsc-complex:cray-shmem:cray-tpsl:cray-trilinos:cudatoolkit:fftw:ga:hdf5:hdf5-parallel:iobuf:libfast:netcdf:netcdf-hdf5parallel:ntk:onesided:papi:petsc:petsc-complex:pmi:tpsl:trilinos:xt-libsci:xt-mpich2:xt-mpt:xt-papi
+PE_FORTRAN_DEFAULT_PKGCONFIG_LIBS=mpichf90
+PE_FFTW_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/fftw/3.3.10.4/@PE_FFTW_DEFAULT_TARGET@/lib/pkgconfig
+PAT_RT_PERFCTR_DISABLE_COMPONENTS=nvml
+PE_PAPI_DEFAULT_PKGCONFIG_VARIABLES=PE_PAPI_ACCEL_LIBS_@accelerator@ PE_PAPI_ACCEL_FAMILY_LIBS_@accelerator_family@
+CRAYPAT_GCC_LIB_PATH=/opt/cray/pe/gcc-libs
+PE_LIBSCI_GENCOMPS_INTEL_x86_64=20222
+PE_LIBSCI_DEFAULT_GENCOMPILERS_INTEL_x86_64=2022.2
+PE_CRAYCLANG_FIXED_PKGCONFIG_PATH=/opt/cray/pe/hdf5/1.12.2.3/CRAYCLANG/14.0/lib/pkgconfig:/opt/cray/pe/libsci/23.05.1.4/CRAY/120/x86_64/lib/pkgconfig
+FROM_HEADER=
+MAIL=/var/spool/mail/rebshan
+CRAY_CCE_SHARE=/opt/cray/pe/cce/16.0.0/cce/x86_64/share
+PE_HDF5_PARALLEL_DEFAULT_FIXED_PRGENV=GNU CRAYCLANG INTEL AOCC NVIDIA
+PE_MPICH_VOLATILE_PRGENV=AMD AOCC CRAY CRAYCLANG GNU NVIDIA
+SAMPLES_HOME=/app/Example_Codes
+PE_INTEL_FIXED_PKGCONFIG_PATH=/opt/cray/pe/hdf5/1.12.2.3/INTEL/19.0/lib/pkgconfig:/opt/cray/pe/mpich/8.1.26/ofi/intel/2022.1/lib/pkgconfig
+SINGULARITY_ENVIRONMENT=/.singularity.d/env/91-environment.sh
+CRAY_BINUTILS_BIN_AARCH64=/opt/cray/pe/cce/16.0.0/binutils/cross/x86_64-aarch64/aarch64-linux-gnu/bin
+CXX=CC
+PE_HDF5_DEFAULT_FIXED_PRGENV=GNU CRAYCLANG INTEL AOCC NVIDIA
+VSCODE_GIT_ASKPASS_MAIN=/nix/store/7493vl4l08di46rybfcrmx2q18zsl2gm-code-server-4.91.1/libexec/code-server/lib/vscode/extensions/git/dist/askpass-main.js
+PE_HDF5_FIXED_PRGENV=GNU CRAYCLANG INTEL AOCC NVIDIA
+PE_FFTW_DEFAULT_TARGET_haswell=haswell
+LESSKEY=/etc/lesskey.bin
+CRAY_SITE_LIST_DIR=/etc/cray-pe.d/cray-modules
+TERM=xterm-256color
+SHELL=/bin/bash
+PE_LIBSCI_ACC_DEFAULT_REQUIRED_PRODUCTS=PE_LIBSCI
+CRAY_MPICH_VER=8.1.26
+PE_MPICH_GENCOMPILERS_CRAYCLANG=14.0
+CRAY_BINUTILS_ROOT_AARCH64=/opt/cray/pe/cce/16.0.0/binutils/cross/x86_64-aarch64/aarch64-linux-gnu/../
+XDG_SESSION_CLASS=user
+PE_MPICH_FIXED_PRGENV=INTEL
+CRAY_LIBSCI_PREFIX=/opt/cray/pe/libsci/23.05.1.4/CRAY/12.0/x86_64
+PE_LIBSCI_DEFAULT_GENCOMPS_CRAY_x86_64=120
+SINGULARITY_NAME=cs_scratch.sif
+CRAY_PYTHON_PREFIX=/opt/cray/pe/python/3.10.10
+CRAY_LIBSCI_VERSION=23.05.1.4
+LS_OPTIONS=-N --color=tty -T 0
+XCURSOR_THEME=DMZ
+PE_LIBSCI_GENCOMPS_NVIDIA_x86_64=207
+PE_LIBSCI_DEFAULT_GENCOMPILERS_NVIDIA_x86_64=20.7
+PE_LIBSCI_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/libsci/23.05.1.4/@PRGENV@/@PE_LIBSCI_DEFAULT_GENCOMPS@/@PE_LIBSCI_DEFAULT_TARGET@/lib/pkgconfig
+CRAY_CXX_IPA_LIBS_X86_64=/opt/cray/pe/cce/16.0.0/cce/x86_64/lib/libcray-c++-rts.a
+CRAY_BINUTILS_BIN_X86_64=/opt/cray/pe/cce/16.0.0/binutils/x86_64/bin
+port=8535
+USE_PCM_DB=2
+PE_LIBSCI_DEFAULT_PKGCONFIG_VARIABLES=PE_LIBSCI_DEFAULT_OMP_REQUIRES_@openmp@:PE_SCI_EXT_LIBPATH:PE_SCI_EXT_LIBNAME
+CC_X86_64=/opt/cray/pe/cce/16.0.0/cce/x86_64
+PE_SMA_DEFAULT_COMPFLAG_GNU=-fcray-pointer
+CRAY_DSMML_BASEDIR=/opt/cray/pe/dsmml/0.2.2
+FORTRAN_SYSTEM_MODULE_NAMES=ftn_lib_definitions
+PE_SMA_DEFAULT_VOLATILE_PKGCONFIG_PATH=/opt/cray/pe/sma/11.6.0/ofi/sma@PE_SMA_DEFAULT_DIR_DEFAULT64@/lib64/pkgconfig
+PE_LIBSCI_ACC_DEFAULT_VOLATILE_PRGENV=AMD CRAYCLANG GNU
+DAAC_HOME=/app/DAAC
+PE_GNU_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/pe/parallel-netcdf/1.12.3.3/GNU/9.1/lib/pkgconfig:/opt/cray/pe/netcdf-hdf5parallel/4.9.0.3/GNU/9.1/lib/pkgconfig:/opt/cray/pe/netcdf/4.9.0.3/GNU/9.1/lib/pkgconfig:/opt/cray/pe/hdf5-parallel/1.12.2.3/GNU/9.1/lib/pkgconfig:/opt/cray/pe/hdf5/1.12.2.3/GNU/9.1/lib/pkgconfig
+PE_MPICH_DEFAULT_GTL_DIR_amd_gfx906=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+PE_LIBSCI_ACC_DEFAULT_GENCOMPILERS_CRAYCLANG_x86_64=9.0
+PE_FFTW_DEFAULT_TARGET_x86_icelake=x86_icelake
+PE_MPICH_DEFAULT_GTL_DIR_amd_gfx908=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+PE_MPICH_GENCOMPILERS_GNU=9.1
+APPTAINER_APPNAME=
+CRAY_PE_CCE_VARIANT=CC=Clang:FTN=Classic
+PYTHONSTARTUP=/etc/pythonstart
+BC_HOST=narwhal
+TMUX_PANE=%0
+NIX_SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
+PE_LIBSCI_DEFAULT_GENCOMPILERS_AOCC_x86_64=3.2
+PE_LIBSCI_DEFAULT_GENCOMPS_INTEL_x86_64=20222
+PE_LIBSCI_GENCOMPS_AOCC_x86_64=32
+CRAY_CC_VERSION=16.0.0
+SHLVL=7
+LANGUAGE=en_US:en
+PYTHONPATH=/p/home/rebshan/postProcessing/postProcess_drop_diameter/SiloInstall/lib64:/opt/cray/pe/python/3.10.10:/p/home/rebshan/postProcessing/postProcess_drop_diameter/SiloInstall/lib64:
+G_FILENAME_ENCODING=@locale,UTF-8,ISO-8859-15,CP1252
+CRAY_LIBSCI_PREFIX_DIR=/opt/cray/pe/libsci/23.05.1.4/CRAY/12.0/x86_64
+MPSCP_CONFIG_FILENAME=/p/app/mpscp-1.3a/etc/mpscp.conf
+VSCODE_GIT_IPC_HANDLE=/p/home/rebshan/.run/vscode-git-226e6bced4.sock
+NODE_EXEC_PATH=/nix/store/9x6rhv1spnj29hdb9m867xwn33k31wda-nodejs-20.19.4/bin/node
+PE_PAPI_DEFAULT_ACCELL_FAMILY_LIBS=
+PE_LIBSCI_DEFAULT_GENCOMPS_NVIDIA_x86_64=207
+CRAY_BINUTILS_BIN=/opt/cray/pe/cce/16.0.0/binutils/x86_64/bin
+MANPATH=/opt/cray/pe/python/3.10.10/share/man:/opt/cray/pe/modules/3.2.11.7/share/man:/opt/cray/pe/modules/3.2.11.7/share/man:/root/.nix-profile/share/man:/nix/var/nix/profiles/default/share/man:/app/man:/p/app/BCT/man
+PE_MPICH_DEFAULT_GTL_DIR_amd_gfx90a=-L/opt/cray/pe/mpich/8.1.26/gtl/lib
+CRAY_FTN_VERSION=16.0.0
+MFCHOME=/p/home/rebshan/MFC
+WORKDIR=/p/work1/rebshan
+MPICH_DIR=/opt/cray/pe/mpich/8.1.26/ofi/cray/14.0
+OSCAR_HOME=/opt/oscar
+ATP_CFLAGS_GNU_FORTRAN=-fno-backtrace
+BC_BIGMEM_NODE_CORES=128
+PE_MPICH_DEFAULT_PKGCONFIG_VARIABLES=PE_MPICH_GTL_DIR_@accelerator@:PE_MPICH_GTL_LIBS_@accelerator@
+F90=ftn
+CENTER=/p/cwfs/rebshan
+MODULEPATH=/opt/cray/pe/perftools/23.05.0/modulefiles:/opt/cray/pe/modulefiles:/opt/cray/modulefiles:/opt/modulefiles:/usr/share/modules:/usr/share/Modules/$MODULE_VERSION/modulefiles:/usr/share/modules/modulefiles:/opt/cray/pe/craype-targets/default/modulefiles:/usr/share/modules/modulefiles:/p/app/modulefiles/apps:/p/app/modulefiles/devel:/p/app/modulefiles/modulefiles:/p/app/modulefiles/unsupported:/p/app/DAAC/modules:/p/app/hpcx/default/modulefiles
+PE_LIBSCI_GENCOMPILERS_AOCC_x86_64=3.2
+PE_HDF5_PKGCONFIG_LIBS=hdf5_hl:hdf5
+CRAY_MPICH_DIR=/opt/cray/pe/mpich/8.1.26/ofi/cray/14.0
+PE_PKGCONFIG_PRODUCTS_DEFAULT=PE_PAPI
+CRAY_PYTHON_VERSION=3.10.10
+LOGNAME=rebshan
+PE_MPICH_DEFAULT_FIXED_PRGENV=INTEL
+CRAY_MPICH_VERSION=8.1.26
+GIT_ASKPASS=/nix/store/7493vl4l08di46rybfcrmx2q18zsl2gm-code-server-4.91.1/libexec/code-server/lib/vscode/extensions/git/dist/askpass.sh
+XDG_RUNTIME_DIR=/p/home/rebshan/.run
+PE_MPICH_GENCOMPILERS_AOCC=3.0
+MODULE_VERSION_STACK=3.2.11.7
+PE_NVIDIA_DEFAULT_FIXED_PKGCONFIG_PATH=/opt/cray/pe/parallel-netcdf/1.12.3.3/NVIDIA/20.7/lib/pkgconfig:/opt/cray/pe/netcdf-hdf5parallel/4.9.0.3/NVIDIA/20.7/lib/pkgconfig:/opt/cray/pe/netcdf/4.9.0.3/NVIDIA/20.7/lib/pkgconfig:/opt/cray/pe/hdf5-parallel/1.12.2.3/NVIDIA/20.7/lib/pkgconfig:/opt/cray/pe/hdf5/1.12.2.3/NVIDIA/20.7/lib/pkgconfig
+ARCHIVE_HOME=/archive/home/rebshan
+PE_MPICH_GTL_LIBS_amd_gfx906=-lmpi_gtl_hsa
+PE_DSMML_PKGCONFIG_LIBS=dsmml
+JRE_HOME=/usr/lib64/jvm/java-11-openjdk-11
+PE_LIBSCI_PKGCONFIG_VARIABLES=PE_LIBSCI_OMP_REQUIRES_@openmp@:PE_SCI_EXT_LIBPATH:PE_SCI_EXT_LIBNAME
+PE_LIBSCI_DEFAULT_GENCOMPILERS_CRAY_x86_64=12.0
+PE_MPICH_DEFAULT_VOLATILE_PRGENV=AMD AOCC CRAY CRAYCLANG GNU NVIDIA
+PE_LIBSCI_GENCOMPS_CRAY_x86_64=120
+XDG_CONFIG_DIRS=/etc/xdg
+PATH=/opt/cray/pe/hdf5/1.12.2.3/bin:/opt/cray/pe/python/3.10.10/bin:/p/newhome/rebshan/postProcessing/myenv/bin:/nix/store/7493vl4l08di46rybfcrmx2q18zsl2gm-code-server-4.91.1/libexec/code-server/lib/vscode/bin/remote-cli:/p/app/ondemand/wrappers:/p/app/ondemand/bin:/usr/local/krb5/bin:/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/app/bin:/app/COTS/bin:/p/app/BCT/bin:/p/app/SLB
+APPTAINER_ENVIRONMENT=/.singularity.d/env/91-environment.sh
+PE_MPICH_GTL_LIBS_amd_gfx908=-lmpi_gtl_hsa
+JAVA_BINDIR=/usr/lib64/jvm/java-11-openjdk-11/bin
+_LMFILES_=/opt/cray/pe/modulefiles/cce/16.0.0:/opt/cray/pe/modulefiles/craype/2.7.21:/opt/cray/pe/craype-targets/default/modulefiles/craype-x86-rome:/opt/cray/modulefiles/libfabric/1.22.0:/opt/cray/pe/craype-targets/default/modulefiles/craype-network-ofi:/opt/cray/pe/modulefiles/cray-dsmml/0.2.2:/opt/cray/pe/modulefiles/perftools-base/23.05.0:/opt/cray/pe/modulefiles/cray-mpich/8.1.26:/opt/cray/pe/modulefiles/cray-libsci/23.05.1.4:/opt/cray/pe/modulefiles/cray-pals/1.2.12:/p/app/modulefiles/apps/bct-env/0.2:/p/app/modulefiles/unsupported/mpscp/1.3a:/opt/cray/pe/modulefiles/PrgEnv-cray/8.4.0:/opt/cray/pe/modulefiles/cray-python/3.10.10:/opt/cray/pe/modulefiles/cray-hdf5/1.12.2.3
+PET_HOME=/app/PET
+PS1=(myenv) \[]633;A\](C)[\u@\h \W]$ \[]633;B\]
+PE_NETCDF_DEFAULT_FIXED_PRGENV=GNU CRAYCLANG INTEL AOCC NVIDIA
+PE_NVIDIA_FIXED_PKGCONFIG_PATH=/opt/cray/pe/hdf5/1.12.2.3/NVIDIA/20.7/lib/pkgconfig
+MODULESHOME=/opt/cray/pe/modules/3.2.11.7
+BC_STANDARD_NODE_CORES=128
+PKG_CONFIG_PATH=/opt/cray/libfabric/1.22.0/lib64/pkgconfig:/opt/cray/pe/craype/2.7.21/pkg-config:/opt/cray/pe/iobuf/2.0.10/lib/pkgconfig:/opt/cray/pe/atp/3.15.0/lib/pkgconfig
+LIBSCI_BASE_DIR=/opt/cray/pe/libsci/23.05.1.4
+MPSCP_DATA_IP=140.32.36.137
+G_BROKEN_FILENAMES=1
+PE_GNU_FIXED_PKGCONFIG_PATH=/opt/cray/pe/hdf5/1.12.2.3/GNU/9.1/lib/pkgconfig
+HISTSIZE=1000
+PE_MPICH_GTL_LIBS_amd_gfx90a=-lmpi_gtl_hsa
+CRAYPE_DIR=/opt/cray/pe/craype/2.7.21
+password=GSJ47Hvy3D0Ru2FYTSL3
+PE_HDF5_PARALLEL_DEFAULT_REQUIRED_PRODUCTS=PE_MPICH
+OFFLOAD_INIT=on_start
+PE_PKGCONFIG_DEFAULT_PRODUCTS=PE_PARALLEL_NETCDF:PE_NETCDF_HDF5PARALLEL:PE_NETCDF:PE_MPICH:PE_LIBSCI_ACC:PE_LIBSCI:PE_HDF5_PARALLEL:PE_HDF5:PE_FFTW
+CRAY_HDF5_VERSION=1.12.2.3
+CPU=x86_64
+CRAY_HDF5_DIR=/opt/cray/pe/hdf5/1.12.2.3
+CRAYPE_VERSION=2.7.21
+INCLUDE_PATH_X86_64=/opt/cray/pe/cce/16.0.0/cce-clang/x86_64/lib/clang/16/include:/opt/cray/pe/cce/16.0.0/cce/x86_64/include/craylibs
+MPSCP_BLOCKED_FILE=/p/app/mpscp-1.3a/etc/mpscp_blocked_ports
+PE_MPICH_GENCOMPILERS_AMD=5.0
+BC_CORES_PER_NODE=128
+SINGULARITY_BIND=/bin,/sbin,/usr,/lib,/lib64,/etc,/p,/app,/run,/opt,/archive,/var/run,/var/spool,/usr/local/krb5/etc/ssh_config
+CRAY_MPICH_PREFIX=/opt/cray/pe/mpich/8.1.26/ofi/cray/14.0
+CVS_RSH=ssh
+PE_MPICH_DEFAULT_PKGCONFIG_LIBS=mpich
+LESSOPEN=lessopen.sh %s
+CRAYPAT_OPTS_EXECUTABLE=libexec64/opts
+PE_FFTW_DEFAULT_TARGET_x86_cascadelake=x86_cascadelake
+PE_LIBSCI_DEFAULT_GENCOMPILERS_GNU_x86_64=10.3
+PE_LIBSCI_GENCOMPS_GNU_x86_64=103
+LC_TIME=POSIX
+BASH_FUNC_create_passwd%%=() {  ( set +o pipefail;
+ tr -cd 'a-zA-Z0-9' < /dev/urandom 2> /dev/null | head -c${1:-8} )
+}
+BASH_FUNC_wait_until_port_used%%=() {  local port="${1}";
+ local time="${2:-30}";
+ for ((i=1; i<=time*2; i++))
+ do
+ port_used "${port}";
+ port_status=$?;
+ if [ "$port_status" == "0" ]; then
+ return 0;
+ else
+ if [ "$port_status" == "127" ]; then
+ echo "commands to find port were either not found or inaccessible.";
+ echo "command options are lsof, nc, bash's /dev/tcp, or python (or python3) with socket lib.";
+ return 127;
+ fi;
+ fi;
+ sleep 0.5;
+ done;
+ return 1
+}
+BASH_FUNC_module%%=() {  eval `/opt/cray/pe/modules/3.2.11.7/bin/modulecmd bash $*`
+}
+BASH_FUNC_find_port%%=() {  local host="${1:-localhost}";
+ local min_port=${2:-2000};
+ local max_port=${3:-65535};
+ local port_range=($(shuf -i ${min_port}-${max_port}));
+ local retries=1;
+ for ((attempt=0; attempt<=$retries; attempt++))
+ do
+ for port in "${port_range[@]}";
+ do
+ if port_used "${host}:${port}"; then
+ continue;
+ fi;
+ echo "${port}";
+ return 0;
+ done;
+ done;
+ echo "error: failed to find available port in range ${min_port}..${max_port}" 1>&2;
+ return 1
+}
+BASH_FUNC_port_used%%=() {  local port="${1#*:}";
+ local host=$((expr "${1}" : '\(.*\):' || echo "localhost") | awk 'END{print $NF}');
+ local port_strategies=(port_used_nc port_used_lsof port_used_bash port_used_python port_used_python3);
+ for strategy in ${port_strategies[@]};
+ do
+ $strategy $host $port;
+ status=$?;
+ if [[ "$status" == "0" ]] || [[ "$status" == "1" ]]; then
+ return $status;
+ fi;
+ done;
+ return 127
+}
+BASH_FUNC_random_number%%=() {  shuf -i ${1}-${2} -n 1
+}
+BASH_FUNC_source_helpers%%=() {  function random_number () 
+ { 
+ shuf -i ${1}-${2} -n 1
+ };
+ export -f random_number;
+ function port_used_python () 
+ { 
+ python -c "import socket; socket.socket().connect(('$1',$2))" > /dev/null 2>&1
+ };
+ function port_used_python3 () 
+ { 
+ python3 -c "import socket; socket.socket().connect(('$1',$2))" > /dev/null 2>&1
+ };
+ function port_used_nc () 
+ { 
+ nc -w 2 "$1" "$2" < /dev/null > /dev/null 2>&1
+ };
+ function port_used_lsof () 
+ { 
+ lsof -i :"$2" > /dev/null 2>&1
+ };
+ function port_used_bash () 
+ { 
+ local bash_supported=$(strings /bin/bash 2> /dev/null | grep tcp);
+ if [ "$bash_supported" == "/dev/tcp/*/*" ]; then
+ ( : < /dev/tcp/$1/$2 ) > /dev/null 2>&1;
+ else
+ return 127;
+ fi
+ };
+ function port_used () 
+ { 
+ local port="${1#*:}";
+ local host=$((expr "${1}" : '\(.*\):' || echo "localhost") | awk 'END{print $NF}');
+ local port_strategies=(port_used_nc port_used_lsof port_used_bash port_used_python port_used_python3);
+ for strategy in ${port_strategies[@]};
+ do
+ $strategy $host $port;
+ status=$?;
+ if [[ "$status" == "0" ]] || [[ "$status" == "1" ]]; then
+ return $status;
+ fi;
+ done;
+ return 127
+ };
+ export -f port_used;
+ function find_port () 
+ { 
+ local host="${1:-localhost}";
+ local min_port=${2:-2000};
+ local max_port=${3:-65535};
+ local port_range=($(shuf -i ${min_port}-${max_port}));
+ local retries=1;
+ for ((attempt=0; attempt<=$retries; attempt++))
+ do
+ for port in "${port_range[@]}";
+ do
+ if port_used "${host}:${port}"; then
+ continue;
+ fi;
+ echo "${port}";
+ return 0;
+ done;
+ done;
+ echo "error: failed to find available port in range ${min_port}..${max_port}" 1>&2;
+ return 1
+ };
+ export -f find_port;
+ function wait_until_port_used () 
+ { 
+ local port="${1}";
+ local time="${2:-30}";
+ for ((i=1; i<=time*2; i++))
+ do
+ port_used "${port}";
+ port_status=$?;
+ if [ "$port_status" == "0" ]; then
+ return 0;
+ else
+ if [ "$port_status" == "127" ]; then
+ echo "commands to find port were either not found or inaccessible.";
+ echo "command options are lsof, nc, bash's /dev/tcp, or python (or python3) with socket lib.";
+ return 127;
+ fi;
+ fi;
+ sleep 0.5;
+ done;
+ return 1
+ };
+ export -f wait_until_port_used;
+ function create_passwd () 
+ { 
+ ( set +o pipefail;
+ tr -cd 'a-zA-Z0-9' < /dev/urandom 2> /dev/null | head -c${1:-8} )
+ };
+ export -f create_passwd
+}
+_=/root/.nix-profile/bin/env

@@ -13,7 +13,7 @@ class MFC(postProcess):
 
     # file formatting stuff
     def __init__(self,postProcFolder,meshDensity,nProc,timeStep):
-        super().__init__(postProcFolder,meshDensity,threshold)
+        super().__init__(postProcFolder,meshDensity)
         
         self.nProc = nProc
         self.timeStep = timeStep

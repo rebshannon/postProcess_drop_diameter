@@ -11,7 +11,7 @@ import csv
 import fluidfoam
 
 class OpenFOAM(postProcess):
-    def __init__(self,postProcFolder,meshDensity,timeStep,threshold):
+    def __init__(self,postProcFolder,meshDensity,timeStep):
         """pattern : str
             Regular expression for filename matching (not path).
         """

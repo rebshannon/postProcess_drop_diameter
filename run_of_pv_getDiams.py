@@ -11,9 +11,10 @@ caseCat = "U267_D2_B"
 postProcFolder = "/postProcessing/pvData" # where data is stored within the case
 timeStep = 1e-6
 meshDensity =  2e-6 #0.00127/300
+threshold = 0.1
 
 # initialize OF class
-OF = OpenFOAMpv( postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep)
+OF = OpenFOAMpv( postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep,threshold=threshold)
 os.chdir(workingDir)
 
 # grab the cases you want to analyze
@@ -42,7 +43,7 @@ for caseName in case_list:
         #case_numbers.append(case_number)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha01.csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha"{threshold}".csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")
