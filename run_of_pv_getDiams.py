@@ -22,6 +22,7 @@ case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(
 case_numbers = []
 #case_list = {'U267_D2_B1','U267_D2_B2','U267_D2_B2b','U267_D2_B3','U267_D2_B4','U267_D2_B45','U267_D2_B7','U267_D2_B10','U267_D2_B11','U267_D2_B12} # only one case for testing
 print(f"case_list: {case_list}")
+printThresold = 10*threshold
 
 header = ["times","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
 
@@ -43,7 +44,7 @@ for caseName in case_list:
         #case_numbers.append(case_number)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha"{threshold}".csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha{printThreshold}.csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")

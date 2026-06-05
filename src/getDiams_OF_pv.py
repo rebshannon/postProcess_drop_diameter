@@ -1,5 +1,4 @@
 from getDiams import postProcess
-
 import os
 import re
 import pandas as pd
@@ -7,10 +6,11 @@ from scipy.spatial import cKDTree
 import numpy as np
 import time
 from scipy import ndimage
-import csv
 import fluidfoam
+import csv
 
-class OpenFOAM(postProcess):
+class OpenFOAM_pv(postProcess):
+
     def __init__(self,postProcFolder,meshDensity,timeStep,threshold):
         """pattern : str
             Regular expression for filename matching (not path).
@@ -51,31 +51,34 @@ class OpenFOAM(postProcess):
         except FileNotFoundError:
             print(f"no folder with name {folder}")
             return None
-        
-        # get list of times 
-        try:
-            timeList = pd.read_csv('timeList.csv',header=None,dtype=str).to_numpy()
-        except FileNotFoundError:
-            print(f"Time List file does not exsit. Run 'foamListTimes > timeList.csv' on {folder}")
-        
-        if timeList: # if there's data
- 
-            # load mesh
+       
+        matching_files = self.find_matching_files(folder) # look for files named like pattern - gives path to all files
+        print(matching_files)
+       
+        if matching_files: # if there's data
+       
+            sorted_matching_files=sorted(matching_files,key=lambda x: float(re.split(r'[_,.]+',x)[-2])) # sorted based on time; assumes the timestep is the last thing listed
             
+            #self.update_header_names(matching_files[0])
+
+            #get data and a list of times files were saved at
             times = []
             time_strs = []
             diameters = np.array([0,0,0,0,0,0])
-            for time in timeList:
-
-                #  
+            for file in sorted_matching_files:
+                #print('file = ',file)
+                #data, times,time_strs = self.load_dataframes(file, caseName,True)
                 data, times, time_strs = self.load_dataframe(file,True,times,time_strs)
+                #print('times = ',times)
+                #major_diameter_pca,minor_diameter_pca = calculate_diameters_pca(df)
                 coords = self.get_water_points(data)
+                #print('coords =', coords)
                 horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
                 equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
                 center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
-
+                #diameters = np.vstack([diameters, [major_diameter_pca, minor_diameter_pca, major_diameter, minor_diameter]])
                 diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
-
+                #print('diams found')
 
             times = pd.DataFrame(times, columns=[caseName])
             time_strs = pd.DataFrame(time_strs,columns=[caseName])
@@ -135,4 +138,5 @@ class OpenFOAM(postProcess):
             #print(elapsed)
 
         print('data files loaded')
+        print(times)
         return df, times, time_strs

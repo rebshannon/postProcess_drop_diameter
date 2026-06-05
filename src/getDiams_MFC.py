@@ -12,7 +12,7 @@ import csv
 class MFC(postProcess):
 
     # file formatting stuff
-    def __init__(self,postProcFolder,meshDensity,nProc,timeStep):
+    def __init__(self,postProcFolder,meshDensity,nProc,timeStep,threshold):
         super().__init__(postProcFolder,meshDensity,threshold)
         
         self.nProc = nProc

@@ -24,6 +24,7 @@ print(f"case_list: {case_list}")
 header = ["times","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
 
 diam_info_list = []
+printThresold = 10*threshold
 
 for caseName in case_list:
     caseFolder = workingDir + caseName + OF.postProcFolder
@@ -34,7 +35,7 @@ for caseName in case_list:
         diam_info_list.append(diameter_info)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha"{threshold}".csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha{printThreshold}.csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")

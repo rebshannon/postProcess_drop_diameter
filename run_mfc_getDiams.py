@@ -5,7 +5,7 @@ import Silo
 
 # set these variables
 workingDir = "/p/work1/rebshan/" # where to loook for cases
-caseCat = "M5B0"
+caseCat = "M2B50_"
 postProcFolder = "/silo_hdf5/" # where data is stored within the case
 nProc = 128
 threshold = 0.1
@@ -13,17 +13,18 @@ threshold = 0.1
 ## FIX : need to find dt and mesh density from the case.py file
 
 timeStep = 1e-6 # not used?
-meshDensity =  0.002/150
+meshDensity =  0.002/200
 
 # initialize MFC class
 MFC = MFC(postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep,nProc=nProc,threshold=threshold)
 os.chdir(workingDir)
 
 # grab the cases you want to analyze
-case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
+#case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
 case_numbers = []
-#case_list = {'case1'} # only one case for testing
+case_list = {'M2B100_200c_p10.NARWHAL'} # only one case for testing
 print(f"case_list: {case_list}")
+printThresold = 10*threshold
 
 header = ["timeStep","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
 
@@ -38,7 +39,7 @@ for caseName in case_list:
         diam_info_list.append(diameter_info)
         fName = "results_" + caseName + ".csv"
 
-        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha"{threshold}".csv",columns=header)
+        diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha{printThreshold}.csv",columns=header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")
