@@ -4,8 +4,8 @@ import numpy as np
 import Silo 
 
 # set these variables
-workingDir = "/p/work1/rebshan/MFC_shockDrop/" # where to loook for cases
-caseCat = "M2B"
+workingDir = "/p/work1/rebshan/" # where to loook for cases
+caseCat = "M2B0P0C300"
 postProcFolder = "/silo_hdf5/" # where data is stored within the case
 nProc = 128
 threshold = 0.1
@@ -13,21 +13,20 @@ threshold = 0.1
 ## FIX : need to find dt and mesh density from the case.py file
 
 timeStep = 1e-6 # not used?
-meshDensity =  0.002/200
+meshDensity =  0.002/300
 
 # initialize MFC class
 MFC = MFC(postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep,nProc=nProc,threshold=threshold)
 os.chdir(workingDir)
 
 # grab the cases you want to analyze
-#case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
+case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
 case_numbers = []
-case_list = {'M2B0C200M.NARWHAL','M2B0CFL200c.NARWHAL','M2B8OF200.NARWHAL','mach2_200cells_weno/M2B100_200c.NARWHAL'} # only one case for testing
+#case_list = {'M2B100_200c_p10.NARWHAL'} # only one case for testing
 print(f"case_list: {case_list}")
 printThreshold = 10*threshold
 
 header = ["timeStep","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
-perim_header = ["timeStep",'perimeter', 'scale_factor', 'x_range', 'y_range', 'image_height', 'image_width']
 
 diam_info_list = []
 
@@ -36,12 +35,11 @@ for caseName in case_list:
     print(caseFolder)
     try:
         # Compute and collect diameter information across all time snapshots
-        diameter_info, perimeter_info = MFC.process_folder_diameter(caseFolder,caseName)
+        diameter_info = MFC.process_folder_diameter(caseFolder,caseName)
         diam_info_list.append(diameter_info)
         fName = "results_" + caseName + ".csv"
 
         diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha{printThreshold}.csv",columns=header)
-        perimeter_info.to_csv(f"{caseFolder}/out_perim_{caseName}_alpha{printThreshold}.csv",columns=perim_header)
     except TypeError:
         print(f"folder {postProcFolder} returned an empty list")
         os.chdir("../")

@@ -8,6 +8,7 @@ from scipy import ndimage
 import Silo
 import csv
 import fluidfoam
+import cv2
 #from scipy.spactial import KDTree
 
 class postProcess:
@@ -72,7 +73,7 @@ class postProcess:
         """
         #Load the data from the file
         data = df
-        
+
         # Filter out the points that belong to the water droplet
         water_points = data[data[self.alphaVar] > self.threshold]
 
@@ -269,7 +270,51 @@ class postProcess:
 
         return centroid_diameter
 
+    def calculate_perimeter(self, coords):
+        """Compute droplet perimeter by rasterizing into an image and contouring.
 
+        Steps
+        -----
+        - Threshold 'Volume Fraction of Water' to isolate droplet cells.
+        - Map (X, Y) coordinates to pixels with a scale factor (upsampling).
+        - Apply morphological closing to glue small gaps between pixels.
+        - Find the largest external contour and measure its perimeter.
 
+        Returns
+        -------
+        tuple
+            (perimeter, contour, scale_factor, x_range, y_range, H, W)
+        """
+        
+        # Do this with image processing
+        x_min, x_max = coords[:,0].min(), coords[:,0].max()
+        y_min, y_max = coords[:,1].min(), coords[:,1].max()
+        x_range = x_max - x_min
+        y_range = y_max - y_min
 
+        scale_factor = 1e6  # Adjust scale for better resolution
+        image_height = int(y_range * scale_factor) + 1
+        image_width = int(x_range * scale_factor) + 1
+        image = np.zeros((image_height, image_width), dtype=np.uint8)
+        #print(int(y_range * scale_factor), int(x_range * scale_factor))
+        for _, row in enumerate(coords):
+            x_pixel = int((row[0] - x_min) * scale_factor)
+            y_pixel = int((row[1] - y_min) * scale_factor)
+            #if 0 <= x_pixel < image.shape[1] and 0 <= y_pixel < image.shape[0]:
+            image[y_pixel, x_pixel] = 255
 
+        # Use morphological closing to ensure white pixels are clumped together without losing resolution
+        kernel = np.ones((30, 30), np.uint8)
+        image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
+
+        cv2.imwrite('droplet_image.png', image)
+
+        # Find contours
+        contours, _ = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        # Assume the largest contour is the droplet outline
+        contour = max(contours, key=cv2.contourArea)
+
+        # Step 4: Calculate the perimeter of the droplet
+        perimeter = cv2.arcLength(contour, True)
+        return perimeter, contour, scale_factor, x_range, y_range, image_height, image_width

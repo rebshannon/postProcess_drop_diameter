@@ -8,24 +8,25 @@ import numpy as np
 import time
 from scipy import ndimage
 import csv
-import fluidfoam
 
 class OpenFOAM(postProcess):
-    def __init__(self,postProcFolder,meshDensity,timeStep,threshold):
+    def __init__(self,postProcFolder,meshDensity,timeStep,threshold,alphaFName):
         """pattern : str
             Regular expression for filename matching (not path).
         """
         super().__init__(postProcFolder,meshDensity,threshold)
         
         self.timeStep = timeStep
+        self.alphaFName = alphaFName
 
-        self.pattern = r'cellCenterData_\d+\.csv' # what the data is saved under
+        self.pattern = r'alphaCoords_\d+\.csv' # what the data is saved under
+        
 
         # header names used for tree
         self.alphaVar = 'alpha.water'
-        self.x = 'cellCenterCoords:0'
-        self.y = 'cellCenterCoords:1'
-        self.z = 'cellCenterCoords:2'
+        self.x = 'center:0'
+        self.y = 'center:1'
+        self.z = 'center:2'
     # file formatting stuff
 
     def process_folder_diameter(self,folder,caseName):
@@ -58,17 +59,17 @@ class OpenFOAM(postProcess):
         except FileNotFoundError:
             print(f"Time List file does not exsit. Run 'foamListTimes > timeList.csv' on {folder}")
         
-        if timeList: # if there's data
+        if timeList.size > 0: # if there's data
  
             # load mesh
             
             times = []
             time_strs = []
             diameters = np.array([0,0,0,0,0,0])
-            for time in timeList:
+            for time, ntStep in enumerate(timeList):
 
-                #  
-                data, times, time_strs = self.load_dataframe(file,True,times,time_strs)
+                #time = time[0]  
+                data, times, time_strs = self.load_dataframe(ntStep,True,times,time_strs)
                 coords = self.get_water_points(data)
                 horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
                 equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
@@ -100,7 +101,7 @@ class OpenFOAM(postProcess):
             #print(f"mach_no: {mach_no}")
             return diameter_info #, mach_no
 
-    def load_dataframe(self,file,getData, times,time_strs):
+    def load_dataframe(self,ntStep,getData, times,time_strs):
         """Load CSVs into DataFrames and extract times from filenames.
 
         Parameters
@@ -121,18 +122,17 @@ class OpenFOAM(postProcess):
         """
         dataframe = []
 
-        timeStepNum = self.get_time_from_fileName(file)
+        timeStepNum = ntStep
         intTime = timeStepNum * self.timeStep
         time_strs.append(intTime)
         intTime = float(intTime)
         times.append(intTime)
 
         if(getData==True):
-            df = pd.read_csv(file)
+            df = pd.read_csv(self.alphaFName + str(ntStep) + '.csv')
                         
             #print('reading elapsed')
             #elapsed = time.time() -t
             #print(elapsed)
 
-        print('data files loaded')
         return df, times, time_strs

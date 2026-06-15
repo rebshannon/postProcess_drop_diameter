@@ -60,6 +60,7 @@ class MFC(postProcess):
             times = []
             time_strs = []
             diameters = np.array([0,0,0,0,0,0])
+            perimeters = np.array([0,0,0,0,0,0])
             for file in sorted_matching_files:
                 #data, times,time_strs = self.load_dataframes(file, caseName,True)
                 tStep = self.get_time_from_fileName(file)
@@ -71,7 +72,10 @@ class MFC(postProcess):
                 horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
                 equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
                 center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
+                perimeter, contour, scale_factor, x_range, y_range, image_height, image_width = self.calculate_perimeter(coords)
+
                 diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
+                perimeters = np.vstack([perimeters, [perimeter, scale_factor,x_range,y_range,image_height,image_width]])
 
             times = pd.DataFrame(times, columns=[caseName])
             time_strs = pd.DataFrame(time_strs,columns=[caseName])
@@ -86,10 +90,25 @@ class MFC(postProcess):
             diameter_info['center_of_mass'] = diameters[:,3]
             diameter_info['leading_edge'] = diameters[:,4]
             diameter_info['leading_edge_equator'] = diameters[:,5]
+
+            perimeters = np.delete(perimeters,(0),axis=0)
+
+            perimeter_info = pd.DataFrame()
+            perimeter_info["timeStep"] = times
+            perimeter_info["perimeter"] = perimeters[:,0]
+            perimeter_info["scale_factor"] = perimeters[:,1]
+            perimeter_info["x_range"] = perimeters[:,2]
+            perimeter_info["y_range"] = perimeters[:,3]
+            perimeter_info["image_height"] = perimeters[:,4]
+            perimeter_info["image_width"] = perimeters[:,5]
+
             os.chdir("../")
             print(f"case:{caseName}")
-            print(f"diameter_info:{diameter_info}")
-            return diameter_info 
+            #print(f"diameter_info:{diameter_info}")
+
+            print(f"perimeter_info:{perimeter_info}")
+
+            return diameter_info, perimeter_info
 
     def extract_and_combine_data(self,file,tStep,folder):
         root_DB = Silo.Open(file,Silo.DB_READ)

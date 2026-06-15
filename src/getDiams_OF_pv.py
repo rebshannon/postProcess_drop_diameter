@@ -19,13 +19,15 @@ class OpenFOAM_pv(postProcess):
         
         self.timeStep = timeStep
 
-        self.pattern = r'cellCenterData_\d+\.csv' # what the data is saved under
+        #PV CHANGE: cellCetnerData
+        self.pattern = r'alphaCoords_\d+\.csv' # what the data is saved under
 
         # header names used for tree
+        #PV CHANGE: cellCetnerCoords
         self.alphaVar = 'alpha.water'
-        self.x = 'cellCenterCoords:0'
-        self.y = 'cellCenterCoords:1'
-        self.z = 'cellCenterCoords:2'
+        self.x = 'Center:0'
+        self.y = 'Center:1'
+        self.z = 'Center:2'
     # file formatting stuff
 
     def process_folder_diameter(self,folder,caseName):
@@ -53,7 +55,6 @@ class OpenFOAM_pv(postProcess):
             return None
        
         matching_files = self.find_matching_files(folder) # look for files named like pattern - gives path to all files
-        print(matching_files)
        
         if matching_files: # if there's data
        
@@ -65,20 +66,19 @@ class OpenFOAM_pv(postProcess):
             times = []
             time_strs = []
             diameters = np.array([0,0,0,0,0,0])
+            perimeters = np.array([0,0,0,0,0,0])
             for file in sorted_matching_files:
-                #print('file = ',file)
-                #data, times,time_strs = self.load_dataframes(file, caseName,True)
+
                 data, times, time_strs = self.load_dataframe(file,True,times,time_strs)
-                #print('times = ',times)
-                #major_diameter_pca,minor_diameter_pca = calculate_diameters_pca(df)
                 coords = self.get_water_points(data)
-                #print('coords =', coords)
                 horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
                 equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
                 center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
-                #diameters = np.vstack([diameters, [major_diameter_pca, minor_diameter_pca, major_diameter, minor_diameter]])
+                
+                perimeter, contour, scale_factor, x_range, y_range, image_height, image_width = self.calculate_perimeter(coords)
+
                 diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
-                #print('diams found')
+                perimeters = np.vstack([perimeters, [perimeter, scale_factor,x_range,y_range,image_height,image_width]])
 
             times = pd.DataFrame(times, columns=[caseName])
             time_strs = pd.DataFrame(time_strs,columns=[caseName])
@@ -87,21 +87,29 @@ class OpenFOAM_pv(postProcess):
             
             diameter_info = pd.DataFrame()
             diameter_info["times"] = times
-            # diameter_info["a_pca"] = diameters[:,0]
-            # diameter_info["b_pca"] = diameters[:,1]
-            # diameter_info["a"] = diameters[:,2]
-            # diameter_info["b"] = diameters[:,3]
             diameter_info["horizontal"] = diameters[:,0]
             diameter_info["vertical"] = diameters[:,1]
             diameter_info["equator"] = diameters[:,2]
             diameter_info['center_of_mass'] = diameters[:,3]
             diameter_info['leading_edge'] = diameters[:,4]
             diameter_info['leading_edge_equator'] = diameters[:,5]
+
+            perimeters = np.delete(perimeters,(0),axis=0)
+
+            perimeter_info = pd.DataFrame()
+            perimeter_info["timeStep"] = times
+            perimeter_info["perimeter"] = perimeters[:,0]
+            perimeter_info["scale_factor"] = perimeters[:,1]
+            perimeter_info["x_range"] = perimeters[:,2]
+            perimeter_info["y_range"] = perimeters[:,3]
+            perimeter_info["image_height"] = perimeters[:,4]
+            perimeter_info["image_width"] = perimeters[:,5]
+
             os.chdir("../")
             print(f"case:{caseName}")
             print(f"diameter_info:{diameter_info}")
-            #print(f"mach_no: {mach_no}")
-            return diameter_info #, mach_no
+            print(f"perimeter_info:{perimeter_info}")
+            return diameter_info, perimeter_info
 
     def load_dataframe(self,file,getData, times,time_strs):
         """Load CSVs into DataFrames and extract times from filenames.
@@ -137,6 +145,4 @@ class OpenFOAM_pv(postProcess):
             #elapsed = time.time() -t
             #print(elapsed)
 
-        print('data files loaded')
-        print(times)
-        return df, times, time_strs
+            return df, times, time_strs

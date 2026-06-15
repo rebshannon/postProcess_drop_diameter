@@ -3,16 +3,17 @@ import os
 import numpy as np
 
 # set these variables
-workingDir = "/projectnb/aeracous/REBECCA/DOD_CAVSYM/" # where to loook for cases
+workingDir = "/p/work1/rebshan/" # where to loook for cases
 print(f"beginning now in {workingDir}")
-caseCat = "U267_D2_B"
-postProcFolder = "" # where data is stored within the case
+caseCat = "cM2B8OF.NARWHAL"
+postProcFolder = "postProcess_alpha" # where data is stored within the case
 timeStep = 1e-6
-meshDensity =  2e-6 #0.00127/300
+meshDensity =  4e-6 #0.00127/300
 threshold = 0.1
+alphaFName = 'alphaCoords_'
 
 # initialize OF class
-OF = OpenFOAMpv( postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep,threshold=threshold)
+OF = OpenFOAM( postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep,threshold=threshold,alphaFName = alphaFName)
 os.chdir(workingDir)
 
 # grab the cases you want to analyze
@@ -24,10 +25,10 @@ print(f"case_list: {case_list}")
 header = ["times","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
 
 diam_info_list = []
-printThresold = 10*threshold
+printThreshold = 10*threshold
 
 for caseName in case_list:
-    caseFolder = workingDir + caseName + OF.postProcFolder
+    caseFolder = workingDir + caseName + '/' + OF.postProcFolder
     try:
         # Compute and collect diameter information across all time snapshots
         diameter_info = OF.process_folder_diameter(caseFolder,caseName)
