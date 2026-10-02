@@ -1,14 +1,54 @@
-# drop_diameter_postProcess
-Python script to find diameter info from csv with (x,y,z,alpha)
+# Post Processing Scripts for Shock Droplet Interactions
 
-conda activate work-env
+Python scripts that extract droplet dimeters, leading edge, and perimeter from CFD output. Compatible with OpenFOAM and MFC.
 
-pip install -e .
+OpenFOAM does not have perimeter capability yet.
 
-For testing: pytest -v --cov=src --cov-report term-missing
+Adapted from Brendon's work.
 
-Currently works with MFC and OpenFOAM. The OpenFOAM data needs to be postprocessed to be in a single csv per time step.
 
-Tests currently don't work.
+## MFC
+Define
+1. working directory
+2. post processing directory
+3. Number of processors used
+4. desired alpha threshold
+5. simulation time step (need to confirm if this is used)
+6. Mesh density
 
-Known issues: doesn't change diameter values when the alpha threshold changes.
+working directory + case list + post processing directory = path to where the data is
+
+## OpenFAOM
+Define
+1. working directory
+2. desired alpha threshold
+3. simulation time step (need to confirm if this is used)
+4. Mesh density
+
+## For all cases
+1. choose is you want perimeter, diameter, or both
+2. make case list selection
+
+## To Run
+`source  /p/home/rebshan/postProcessing/myenv/bin/activate`
+
+`python run_\<fileName\>`
+
+## OpenFAOM pv (to be deprecated)
+or potenailly updated to be used with a csv
+
+Define
+1. working directory
+2. post processing directory
+3. desired alpha threshold
+4. simulation time step (need to confirm if this is used)
+5. Mesh density
+
+working directory + case list + post processing directory = path to where the data is
+
+In src getDiams_OF_pv ensure:
+
+pattern matches the file names for pvData csvs
+
+alphaVar, x, y, and z match column headers to pvData csvs
+

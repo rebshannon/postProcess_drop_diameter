@@ -135,9 +135,6 @@ class postProcess:
         max_y = coords[:, 1].max()
         min_y = coords[:, 1].min()
 
-        #elapsed = time.time() -t
-        #print(elapsed)
-        
         # The major diameter is the maximum distance between any two points
         horizontal_diameter = max_x - min_x
         vertical_diameter = 2 * (max_y - min_y)  # Initial guess for vertical diameter
@@ -188,7 +185,6 @@ class postProcess:
                         component.append(idx)
                         queue.extend([n for n in adjacency[idx] if not visited[n]])
                 components.append(component)
-        
         
         # Keep only the largest component (assumed to be the main droplet)
         largest_component = max(components, key=len)
@@ -307,7 +303,7 @@ class postProcess:
         kernel = np.ones((30, 30), np.uint8)
         image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
 
-        cv2.imwrite('droplet_image.png', image)
+        #cv2.imwrite('droplet_image.png', image)
 
         # Find contours
         contours, _ = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -318,3 +314,44 @@ class postProcess:
         # Step 4: Calculate the perimeter of the droplet
         perimeter = cv2.arcLength(contour, True)
         return perimeter, contour, scale_factor, x_range, y_range, image_height, image_width
+
+    def run_post_process(self, caseFolder, caseName, calcDiam=True, calcPerim=True):
+        """Run post process to find diameter and/or perimeter from prescribed cases
+
+        Steps
+        -----
+        - Reinitialize variables
+        - Find the dimaeter and/or perimeter info for all timesteps
+        - print csv containing perimeter and diameter info
+
+        Parameters
+        ----------
+        caseFolder : [str]
+            directory of the case to be analyzed
+        caseName : [str]
+            name of the case to be analyzed
+        calcDiam : [bool]
+            turn on diameter calculation
+        calcPerim : [bool]
+            turn on perimeter calculation
+        """
+
+        # initialize variables for new case
+        if calcDiam:
+            header = ["timeStep","horizontal", "vertical","equator", "center_of_mass", "leading_edge","leading_edge_equator"]
+            diam_info_list = []
+        
+        if calcPerim:
+            perim_header = ["timeStep",'perimeter', 'scale_factor', 'x_range', 'y_range', 'image_height', 'image_width']
+            perim_info_list = []
+
+        # run the post process
+        diameter_info, perimeter_info = self.process_folder_diameter(caseFolder,caseName,calcDiam,calcPerim)
+        
+        # print info
+        if calcDiam:
+            diam_info_list.append(diameter_info)
+            diameter_info.to_csv(f"{caseFolder}/out_{caseName}_alpha{10*self.threshold}.csv",columns=header)
+        if calcPerim:
+            perim_info_list.append(perimeter_info)
+            perimeter_info.to_csv(f"{caseFolder}/out_perim_{caseName}_alpha{10*self.threshold}.csv",columns=perim_header)

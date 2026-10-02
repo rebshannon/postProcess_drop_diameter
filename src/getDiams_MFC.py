@@ -25,23 +25,43 @@ class MFC(postProcess):
         self.y = 'y'
         self.z = 'z'
 
-    def process_folder_diameter(self,folder,caseName):
+    def process_folder_diameter(self,folder,caseName,calcDiam,calcPerim):
         """Process one case folder to compute a/b diameters over time.
 
         Parameters
         ----------
         folder : str
             Path of the caseCat folder to enter and analyze.
+        caseName : [str]
+            name of the case to be analyzed
+        calcDiam : [bool]
+            turn on diameter calculation
+        calcPerim : [bool]
+            turn on perimeter calculation
 
         Returns
         -------
         tuple[pd.DataFrame, float] | None
-            (diameter_info, mach_no) if files are found; otherwise None.
+            diameter_info, perim_info if files are found; otherwise None.
+
 
         diameter_info has columns:
-        - times: snapshot times (float)
-        - a_pca, b_pca: diameters from PCA method
-        - a, b: diameters from axis-aligned extent method
+        - timeStep number
+        - horizontal: max(x) - min(x)
+        - vertical: 2*max(y)
+        - equator: [max(x) - min(x)] | y = 0
+        - center_of_max: [2*max(y)] | x = center
+        - leading_edge: min(x)
+        - leading_edge_equator: min(x) | y = 0
+
+        perimeter_info has columns:
+        - timeStep number
+        - perimeter
+        - scale_factor
+        - x_range
+        - y_range
+        - image_height
+        - image_width
         """
         try:
             os.chdir(folder)
@@ -61,52 +81,58 @@ class MFC(postProcess):
             time_strs = []
             diameters = np.array([0,0,0,0,0,0])
             perimeters = np.array([0,0,0,0,0,0])
+
             for file in sorted_matching_files:
-                #data, times,time_strs = self.load_dataframes(file, caseName,True)
+
                 tStep = self.get_time_from_fileName(file)
                 times.append(tStep)
                 time_strs.append(tStep)
                 data = self.extract_and_combine_data(file,tStep,folder)
                 
                 coords = self.get_water_points(data)
-                horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
-                equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
-                center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
-                perimeter, contour, scale_factor, x_range, y_range, image_height, image_width = self.calculate_perimeter(coords)
 
-                diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
-                perimeters = np.vstack([perimeters, [perimeter, scale_factor,x_range,y_range,image_height,image_width]])
+                if calcDiam:
+                    # calc diameters
+                    horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
+                    equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
+                    center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
 
+                    # combine into array
+                    diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
+                
+                if calcPerim:
+                    # calc perim and add to array
+                    perimeter, contour, scale_factor, x_range, y_range, image_height, image_width = self.calculate_perimeter(coords)
+                    perimeters = np.vstack([perimeters, [perimeter, scale_factor,x_range,y_range,image_height,image_width]])
+           
             times = pd.DataFrame(times, columns=[caseName])
             time_strs = pd.DataFrame(time_strs,columns=[caseName])
 
-            diameters = np.delete(diameters, (0), axis=0)
-            
             diameter_info = pd.DataFrame()
-            diameter_info["timeStep"] = times
-            diameter_info["horizontal"] = diameters[:,0]
-            diameter_info["vertical"] = diameters[:,1]
-            diameter_info["equator"] = diameters[:,2]
-            diameter_info['center_of_mass'] = diameters[:,3]
-            diameter_info['leading_edge'] = diameters[:,4]
-            diameter_info['leading_edge_equator'] = diameters[:,5]
-
-            perimeters = np.delete(perimeters,(0),axis=0)
-
             perimeter_info = pd.DataFrame()
-            perimeter_info["timeStep"] = times
-            perimeter_info["perimeter"] = perimeters[:,0]
-            perimeter_info["scale_factor"] = perimeters[:,1]
-            perimeter_info["x_range"] = perimeters[:,2]
-            perimeter_info["y_range"] = perimeters[:,3]
-            perimeter_info["image_height"] = perimeters[:,4]
-            perimeter_info["image_width"] = perimeters[:,5]
+
+            if calcDiam:
+                diameters = np.delete(diameters, (0), axis=0)
+                diameter_info["timeStep"] = times
+                diameter_info["horizontal"] = diameters[:,0]
+                diameter_info["vertical"] = diameters[:,1]
+                diameter_info["equator"] = diameters[:,2]
+                diameter_info['center_of_mass'] = diameters[:,3]
+                diameter_info['leading_edge'] = diameters[:,4]
+                diameter_info['leading_edge_equator'] = diameters[:,5]
+
+            if calcPerim:
+                perimeters = np.delete(perimeters,(0),axis=0)
+                perimeter_info["timeStep"] = times
+                perimeter_info["perimeter"] = perimeters[:,0]
+                perimeter_info["scale_factor"] = perimeters[:,1]
+                perimeter_info["x_range"] = perimeters[:,2]
+                perimeter_info["y_range"] = perimeters[:,3]
+                perimeter_info["image_height"] = perimeters[:,4]
+                perimeter_info["image_width"] = perimeters[:,5]
 
             os.chdir("../")
-            print(f"case:{caseName}")
-            #print(f"diameter_info:{diameter_info}")
-
-            print(f"perimeter_info:{perimeter_info}")
+            print(f"case:{caseName} completed")
 
             return diameter_info, perimeter_info
 
