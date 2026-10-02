@@ -20,7 +20,7 @@ class OpenFOAM_pv(postProcess):
         self.timeStep = timeStep
 
         #PV CHANGE: cellCetnerData
-        self.pattern = r'alphaCoords_\d+\.csv' # what the data is saved under
+        self.pattern = r'cellCenterData_\d+\.csv' # what the data is saved under
 
         # header names used for tree
         #PV CHANGE: cellCetnerCoords
