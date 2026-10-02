@@ -4,14 +4,14 @@ import numpy as np
 #import Silo 
 
 # set these variables
-workingDir = "/p/work1/rebshan/OF_shockDrop/" # where to loook for cases
+workingDir = "/p/work1/rebshan/" # where to loook for cases
 #workingDir = "/projectnb/aeracous/REBECCA/postProcessing/testingDirs/" # cases to look for
 print(f"beginning now in {workingDir}")
-caseCat = "M2B50OF"
-postProcFolder = "/postProcess_alpha" # where data is stored within the case
-timeStep = 9.1046e-7
-meshDensity =  10e-6 #0.00127/300
-threshold = 0.1
+caseCat = "U100B"
+postProcFolder = "/postProcessing/pvData" # where data is stored within the case
+timeStep = 1e-6;
+meshDensity =  2e-6 #0.00127/300
+threshold = 0.5
 
 # initialize OF class
 OF = OpenFOAMpv( postProcFolder=postProcFolder,meshDensity=meshDensity,timeStep=timeStep,threshold=threshold)

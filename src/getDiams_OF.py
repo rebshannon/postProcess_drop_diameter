@@ -7,23 +7,23 @@ from scipy.spatial import cKDTree
 import numpy as np
 import time
 from scipy import ndimage
+import fluidfoam
 import csv
+import glob
 
 class OpenFOAM(postProcess):
-    def __init__(self,postProcFolder,meshDensity,timeStep,threshold,alphaFName):
+    def __init__(self,meshDensity,timeStep,threshold,postProcFolder):
         """pattern : str
             Regular expression for filename matching (not path).
         """
         super().__init__(postProcFolder,meshDensity,threshold)
         
         self.timeStep = timeStep
-        self.alphaFName = alphaFName
-
         self.pattern = r'alphaCoords_\d+\.csv' # what the data is saved under
         
 
         # header names used for tree
-        self.alphaVar = 'alpha.water'
+        self.alphaVar = 'volumeFraction1'
         self.x = 'center:0'
         self.y = 'center:1'
         self.z = 'center:2'
@@ -58,25 +58,29 @@ class OpenFOAM(postProcess):
             timeList = pd.read_csv('timeList.csv',header=None,dtype=str).to_numpy()
         except FileNotFoundError:
             print(f"Time List file does not exsit. Run 'foamListTimes > timeList.csv' on {folder}")
+
+        # zget list of processors
+        processor_dirs = sorted(glob.glob(os.path.join(os.getcwd(), 'processor*')))
+        if not processor_dirs:
+            raise FileNotFoundError("No processor* directories found in case directory")
         
         if timeList.size > 0: # if there's data
  
-            # load mesh
-            
             times = []
             time_strs = []
             diameters = np.array([0,0,0,0,0,0])
-            for time, ntStep in enumerate(timeList):
+            for nStep, time in enumerate(timeList):
 
-                #time = time[0]  
-                data, times, time_strs = self.load_dataframe(ntStep,True,times,time_strs)
+                time = time.item(0)
+                times.append(time)
+                time_strs.append(time)
+                data = self.load_dataframe(time,processor_dirs,True)
                 coords = self.get_water_points(data)
                 horizontal_diameter, vertical_diameter, leading_edge = self.calculate_diameters(coords)
                 equator_diameter, leading_edge_equator = self.calculate_equator_diameter(coords)
                 center_of_mass_diameter = self.calculate_centOfMass_diameter(coords)
 
                 diameters = np.vstack([diameters, [horizontal_diameter, vertical_diameter,equator_diameter,center_of_mass_diameter, leading_edge, leading_edge_equator]])
-
 
             times = pd.DataFrame(times, columns=[caseName])
             time_strs = pd.DataFrame(time_strs,columns=[caseName])
@@ -85,10 +89,6 @@ class OpenFOAM(postProcess):
             
             diameter_info = pd.DataFrame()
             diameter_info["times"] = times
-            # diameter_info["a_pca"] = diameters[:,0]
-            # diameter_info["b_pca"] = diameters[:,1]
-            # diameter_info["a"] = diameters[:,2]
-            # diameter_info["b"] = diameters[:,3]
             diameter_info["horizontal"] = diameters[:,0]
             diameter_info["vertical"] = diameters[:,1]
             diameter_info["equator"] = diameters[:,2]
@@ -98,41 +98,94 @@ class OpenFOAM(postProcess):
             os.chdir("../")
             print(f"case:{caseName}")
             print(f"diameter_info:{diameter_info}")
-            #print(f"mach_no: {mach_no}")
-            return diameter_info #, mach_no
+            return diameter_info
 
-    def load_dataframe(self,ntStep,getData, times,time_strs):
-        """Load CSVs into DataFrames and extract times from filenames.
 
+    def load_dataframe(self, timestep, procList, parallel=True, verbose=False):
+        """
+        Read OpenFOAM alpha field and mesh coordinates from all valid processors.
+        
         Parameters
         ----------
-        file_list : list[str]
-            Paths to CSV files to load.
-        folder : str
-            Name of the Mach folder; becomes the column name for the times table.
-        getData : bool
-            When True, actually read CSVs; when False, only parse and return times.
-
+        timestep : float or int
+            Timestep to read (e.g., 0.5, 1.0, etc.)
+        parallel : bool, optional
+            If True, read from processor directories (parallel); 
+            if False, read reconstructed case (default: True)
+        verbose : bool, optional
+            If True, print progress messages (default: False)
+        
         Returns
         -------
-        tuple[list[pd.DataFrame], pd.DataFrame, pd.DataFrame]
-            - dataframes: list of loaded DataFrames (empty if getData is False)
-            - times: single-column DataFrame of float times labeled by folder
-            - time_strs: single-column DataFrame of string times labeled by folder
+        pd.DataFrame
+            DataFrame with columns: x, y, z, and {self.alphaVar}
+            Only includes processors where max(alpha_field) > 0
         """
-        dataframe = []
 
-        timeStepNum = ntStep
-        intTime = timeStepNum * self.timeStep
-        time_strs.append(intTime)
-        intTime = float(intTime)
-        times.append(intTime)
+        # Initialize lists
+        x_list = []
+        y_list = []
+        z_list = []
+        alpha_list = []
+        
+        found_water = False
+        
+        # Loop over each processor
+        for proc_dir in procList:
+            if verbose:
+                proc_name = os.path.basename(proc_dir) if parallel else "serial"
+                print(f"Reading {proc_name}...")
+            
+            try:
+                
+                # Read alpha field
+                try:
+                    alpha_field = fluidfoam.readof.readfield(proc_dir, time_name=timestep, name=self.alphaVar)
+                except KeyError:
+                    raise ValueError(f"no {self.alphaVar} field")
+                
+                alpha_field = alpha_field.squeeze()
+                
+                # Check if processor has water
+                if alpha_field.max() == 0:
+                    if verbose:
+                        print(f"  Skipping processor {proc_dir} (max alpha = 0)")
+                    continue
+                
+                found_water = True
+                
+                # Read mesh
+                x, y, z = fluidfoam.readof.readmesh(proc_dir)
+                x = x.squeeze()
+                y = y.squeeze()
+                z = z.squeeze()
+            
+                # Append to lists
+                x_list.extend(x)
+                y_list.extend(y)
+                z_list.extend(z)
+                alpha_list.extend(alpha_field)
+                
+                if verbose:
+                    print(f"  Added {len(x)} cells (max alpha = {alpha_field.max():.4f})")
+            
+            except ValueError as e:
+                raise ValueError(str(e))
+            except Exception as e:
+                raise RuntimeError(f"Error reading from {os.path.basename(proc_dir)}: {e}")
+        
+        # Check if any water was found
+        if not found_water:
+            raise ValueError(f"no water for timestep {timestep}")
+        
+        # Build DataFrame
+        df = pd.DataFrame({
+            self.x: x_list,
+            self.y: y_list,
+            self.z: z_list,
+            self.alphaVar: alpha_list
+        })
+        
+        return df.astype('float32').reset_index(drop=True)
 
-        if(getData==True):
-            df = pd.read_csv(self.alphaFName + str(ntStep) + '.csv')
-                        
-            #print('reading elapsed')
-            #elapsed = time.time() -t
-            #print(elapsed)
-
-        return df, times, time_strs
+  

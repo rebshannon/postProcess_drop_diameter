@@ -1,0 +1,32 @@
+#!/bin/bash
+#SBATCH --job-name=U100PProc	      ## Name of the job.
+#SBATCH -A AFOSR51812181                        ## account to charge
+#SBATCH --time=72:00:00
+#SBATCH -q standard                             ## partition/queue name
+#SBATCH --nodes=1                               ## (-N) number of nodes to use
+#SBATCH --ntasks=128
+#SBATCH --ntasks-per-node=128                     ## number of processes to launch per node
+#SBATCH --cpus-per-task=1                       ## number of MPI threads
+#SBATCH --exclusive
+#SBATCH --output=opfm-v2412-slurm-%J.out  ## standard out log file
+#SBATCH --error=opfm-v2412-slurm-%J.err   ## standard error log file
+#SBATCH --mail-user=rebshan@bu.edu
+#SBATCH --mail-type=ALL
+
+#...Not needed, but shows what modules are loaded for debugging....
+echo "Modules loaded: "
+module list
+
+OPFM_NODES="$(scontrol show hostnames)"
+OPFM_NODES=$(echo $OPFM_NODES | tr ' ' ',')
+echo $OPFM_NODES
+
+echo MPI job $JOBID starting at `date` on `hostname`
+echo starting in `pwd`
+#
+
+source  /p/home/rebshan/postProcessing/myenv/bin/activate
+
+python run_of_pv_getDiams.py
+
+exit

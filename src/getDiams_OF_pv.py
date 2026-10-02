@@ -25,9 +25,9 @@ class OpenFOAM_pv(postProcess):
         # header names used for tree
         #PV CHANGE: cellCetnerCoords
         self.alphaVar = 'alpha.water'
-        self.x = 'Center:0'
-        self.y = 'Center:1'
-        self.z = 'Center:2'
+        self.x = 'CellCenterCoords:0'
+        self.y = 'CellCenterCoords:1'
+        self.z = 'CellCenterCoords:2'
     # file formatting stuff
 
     def process_folder_diameter(self,folder,caseName):
