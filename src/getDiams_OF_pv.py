@@ -113,7 +113,7 @@ class OpenFOAM_pv(postProcess):
             
             if calcDiam:
                 diameters = np.delete(diameters, (0), axis=0)
-                diameter_info["times"] = times
+                diameter_info["timeStep"] = times
                 diameter_info["horizontal"] = diameters[:,0]
                 diameter_info["vertical"] = diameters[:,1]
                 diameter_info["equator"] = diameters[:,2]

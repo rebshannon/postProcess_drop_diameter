@@ -17,9 +17,9 @@ getDiameter = True
 getPerimeter = True
 
 # CHOOSE CASES
-#case_list = {'U100B1.NARWHAL'} # choose exact cases
-caseCat = "U100B" # search based on case name
-case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
+case_list = {'U100B1.NARWHAL', 'U100B2.NARWHAL','U100B3.NARWHAL'} # choose exact cases
+#caseCat = "U100B" # search based on case name
+#case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
 
 print(f"case_list: {case_list}")
 

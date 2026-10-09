@@ -4,10 +4,10 @@ import numpy as np
 
 # set these variables
 workingDir = "/p/work1/rebshan/" # where to loook for cases
-caseCat = "DS6_MULES.N"
+caseCat = "DS6_p"
 timeStep = 1e-6
 meshDensity =  0.00127/400
-threshold = 0.9
+threshold = 0.1
 
 # initialize OF class
 OF = OpenFOAM(meshDensity=meshDensity,timeStep=timeStep,threshold=threshold,postProcFolder='None')
@@ -16,7 +16,7 @@ os.chdir(workingDir)
 # grab the cases you want to analyze
 #case_list = [d for d in os.listdir() if d.startswith(caseCat) and os.path.isdir(d)] # grab all files in dir that start with string
 case_numbers = []
-case_list = {'DS6_MULES.NARWHAL','DS6_SOLVE.NARWHAL','fixedDS6.NARWHAL'} # only one case for testing
+case_list = {'DS6_SOLVE.NARWHAL','fixedDS6.NARWHAL'} # only one case for testing
 
 print(f"case_list: {case_list}")
 
